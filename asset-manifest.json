@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/static/css/main.8443c354.css",
-    "main.js": "/static/js/main.7dc5b1d7.js",
-    "static/media/stopwatch_delyed.png": "/static/media/stopwatch_delyed.7413c9a25194943c9080.png",
-    "static/media/stopwatch.svg": "/static/media/stopwatch.8c0e617ce10b7f17ac04.svg",
-    "static/media/journal-text.svg": "/static/media/journal-text.aa0b3bec86773faccc9fe5ab956c75a7.svg",
-    "static/media/card-checklist.svg": "/static/media/card-checklist.8cf9b949372f01573663151056fda808.svg",
-    "static/media/journal-check.svg": "/static/media/journal-check.e72fe425480a1ae1e494191b96c2aa99.svg",
-    "index.html": "/index.html",
-    "static/media/pencil-square.svg": "/static/media/pencil-square.75d078b547e1c0688445b9e47edfd1b9.svg",
-    "static/media/box-arrow-left.svg": "/static/media/box-arrow-left.e06b15389541597534bde9cf50a92aa8.svg",
-    "static/media/title.svg": "/static/media/title.07440f1a049b738b26dda0ac5be99b07.svg",
-    "static/media/calendar-plus.svg": "/static/media/calendar-plus.b8df4477421039ab7e731a074db77877.svg",
-    "static/media/list.svg": "/static/media/list.f98b98b4905b36b844a65327ecaadc32.svg",
-    "main.8443c354.css.map": "/static/css/main.8443c354.css.map",
-    "main.7dc5b1d7.js.map": "/static/js/main.7dc5b1d7.js.map"
+    "main.css": "/krsui/static/css/main.fc5db1c4.css",
+    "main.js": "/krsui/static/js/main.b84a31a6.js",
+    "static/media/stopwatch_delyed.png": "/krsui/static/media/stopwatch_delyed.7413c9a25194943c9080.png",
+    "static/media/stopwatch.svg": "/krsui/static/media/stopwatch.8c0e617ce10b7f17ac04.svg",
+    "static/media/journal-text.svg": "/krsui/static/media/journal-text.aa0b3bec86773faccc9fe5ab956c75a7.svg",
+    "static/media/card-checklist.svg": "/krsui/static/media/card-checklist.8cf9b949372f01573663151056fda808.svg",
+    "static/media/journal-check.svg": "/krsui/static/media/journal-check.e72fe425480a1ae1e494191b96c2aa99.svg",
+    "index.html": "/krsui/index.html",
+    "static/media/pencil-square.svg": "/krsui/static/media/pencil-square.75d078b547e1c0688445b9e47edfd1b9.svg",
+    "static/media/box-arrow-left.svg": "/krsui/static/media/box-arrow-left.e06b15389541597534bde9cf50a92aa8.svg",
+    "static/media/title.svg": "/krsui/static/media/title.07440f1a049b738b26dda0ac5be99b07.svg",
+    "static/media/calendar-plus.svg": "/krsui/static/media/calendar-plus.b8df4477421039ab7e731a074db77877.svg",
+    "static/media/list.svg": "/krsui/static/media/list.f98b98b4905b36b844a65327ecaadc32.svg",
+    "main.fc5db1c4.css.map": "/krsui/static/css/main.fc5db1c4.css.map",
+    "main.b84a31a6.js.map": "/krsui/static/js/main.b84a31a6.js.map"
   },
   "entrypoints": [
-    "static/css/main.8443c354.css",
-    "static/js/main.7dc5b1d7.js"
+    "static/css/main.fc5db1c4.css",
+    "static/js/main.b84a31a6.js"
   ]
 }
