@@ -1,0 +1,11 @@
+# Deploy a react app in github pages
+- create a github repo with the name you want to give to your website
+- push the react code into that repo
+- `npm install gh-pages --save-dev` to install the github pages
+- goto the `package.json` file, add the `"homepage": "https://<githubUsername>.github.io/<reponame>"` in the second line (above the name).
+- goto the `scripts` section in the `package.json`
+- add  `"predeploy":"npm run build",` after the `start` script,
+- add `"deploy":"gh-pages -d build",` after the `predeploy` script
+- Go to the terminal and execute `npm run deploy`
+- It will be deployed to github pages in the homepage address you have given,
+- Go to github repository settings, then click on `Pages`, then you will find your website url there.
