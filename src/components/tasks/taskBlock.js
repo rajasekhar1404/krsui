@@ -1,3 +1,4 @@
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { statuses } from "./taskStatus";
 
 
@@ -20,7 +21,7 @@ const Task = ({ title, description, dueDate, status }) => {
                 }
                 <h4>{title}</h4>
             </div>
-            <p>{description}</p>
+            <ReactMarkdown>{description}</ReactMarkdown>
         </div>
     )
 }

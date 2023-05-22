@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { UPDATE_TASK, DELETE_TASK } from '../apis/taskApis'
 import TaskForm from '../utils/taskForm'
+import { OK } from '../utils/constants'
 
 const UpdateTask = ({ isEditing, setEditing, setLoading }) => {
     
@@ -47,8 +48,14 @@ const UpdateTask = ({ isEditing, setEditing, setLoading }) => {
     const hadleDelete = async () => {
         const deleteUrl =  DELETE_TASK + isEditing.editingTask._id
         const response = await fetch(deleteUrl, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization' : `Bearer ${localStorage.getItem('key')}`
+            },
         })
+        if(response.status !== OK) {
+            throw new Error('Unable to delete')
+        }
         const data = await response.json()
         if (!data) {
             throw new Error('Unable to delete')

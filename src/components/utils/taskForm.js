@@ -53,9 +53,11 @@ const TaskForm = (props) => {
                     </tr>
                     </tbody>
                 </table>
-                <button onClick={() => setEditing({isActive: false, editingTask: {}, isUpdated: false})}>Cancel</button>
-                <button onClick={handleUpdate}>Save</button>
-                {header === 'CREATE TASK' ? <></> : <button onClick={hadleDelete}>Delete</button>}
+                <div className="form-buttons">
+                    <button onClick={() => setEditing({isActive: false, editingTask: {}, isUpdated: false})}>Cancel</button>
+                    <button onClick={handleUpdate}>Save</button>
+                    {header === 'CREATE TASK' ? <></> : <button onClick={hadleDelete}>Delete</button>}
+                </div>
         </div>
     )
 }
