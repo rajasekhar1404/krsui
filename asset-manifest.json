@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/krsui/static/css/main.fc5db1c4.css",
-    "main.js": "/krsui/static/js/main.b84a31a6.js",
+    "main.css": "/krsui/static/css/main.e8e5b402.css",
+    "main.js": "/krsui/static/js/main.6647c54e.js",
     "static/media/stopwatch_delyed.png": "/krsui/static/media/stopwatch_delyed.7413c9a25194943c9080.png",
-    "static/media/stopwatch.svg": "/krsui/static/media/stopwatch.8c0e617ce10b7f17ac04.svg",
-    "static/media/journal-text.svg": "/krsui/static/media/journal-text.aa0b3bec86773faccc9fe5ab956c75a7.svg",
-    "static/media/card-checklist.svg": "/krsui/static/media/card-checklist.8cf9b949372f01573663151056fda808.svg",
-    "static/media/journal-check.svg": "/krsui/static/media/journal-check.e72fe425480a1ae1e494191b96c2aa99.svg",
+    "static/media/stopwatch.svg": "/krsui/static/media/stopwatch.90509a4517dee1e02492.svg",
+    "static/media/journal-text.svg": "/krsui/static/media/journal-text.828387f66fa14c01363e12ecbd292d4a.svg",
+    "static/media/card-checklist.svg": "/krsui/static/media/card-checklist.9137e9c0970ae8a35bf56bf436f59e24.svg",
+    "static/media/journal-check.svg": "/krsui/static/media/journal-check.61091340e556a56b0b33ded485055339.svg",
     "index.html": "/krsui/index.html",
-    "static/media/pencil-square.svg": "/krsui/static/media/pencil-square.75d078b547e1c0688445b9e47edfd1b9.svg",
-    "static/media/box-arrow-left.svg": "/krsui/static/media/box-arrow-left.e06b15389541597534bde9cf50a92aa8.svg",
-    "static/media/title.svg": "/krsui/static/media/title.07440f1a049b738b26dda0ac5be99b07.svg",
-    "static/media/calendar-plus.svg": "/krsui/static/media/calendar-plus.b8df4477421039ab7e731a074db77877.svg",
-    "static/media/list.svg": "/krsui/static/media/list.f98b98b4905b36b844a65327ecaadc32.svg",
-    "main.fc5db1c4.css.map": "/krsui/static/css/main.fc5db1c4.css.map",
-    "main.b84a31a6.js.map": "/krsui/static/js/main.b84a31a6.js.map"
+    "static/media/pencil-square.svg": "/krsui/static/media/pencil-square.1bd74fe21bfba125243d0325c9300f0c.svg",
+    "static/media/box-arrow-left.svg": "/krsui/static/media/box-arrow-left.35166c9f5eb8e3765c58403628baa1e4.svg",
+    "static/media/title.svg": "/krsui/static/media/title.35bdc74176b5388443da307a1e192a58.svg",
+    "static/media/calendar-plus.svg": "/krsui/static/media/calendar-plus.773bfb03c1bebaca541e1e86646f8b61.svg",
+    "static/media/list.svg": "/krsui/static/media/list.b8fa93e0a1485bc1cc22740a8ca4805d.svg",
+    "main.e8e5b402.css.map": "/krsui/static/css/main.e8e5b402.css.map",
+    "main.6647c54e.js.map": "/krsui/static/js/main.6647c54e.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc5db1c4.css",
-    "static/js/main.b84a31a6.js"
+    "static/css/main.e8e5b402.css",
+    "static/js/main.6647c54e.js"
   ]
 }
