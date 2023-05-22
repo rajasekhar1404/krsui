@@ -4,6 +4,7 @@ import Navigator from './components/navigator';
 import Login from './components/authentication/login';
 import { LOGGEDINUSER } from './components/apis/taskApis';
 import { OK } from './components/utils/constants';
+import PublicDashboard from './components/dashboard/publicDashboard';
 
 function App() {
 
@@ -42,7 +43,7 @@ function App() {
 }
 
   return (
-      isActive ? <Navigator setActive={setActive} /> : <Login setActive={setActive} />
+      isActive ? <Navigator setActive={setActive} /> : <Login setActive={setActive} /> // <PublicDashboard /> //
   );
 }
 
