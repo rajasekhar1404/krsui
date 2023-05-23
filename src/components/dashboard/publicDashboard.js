@@ -6,8 +6,34 @@ import FACEBOOK from '../../static/facebook.png'
 
 const PublicDashboard = ({ setSignup, setLogin }) => {
 
-    const content = {
-        description : "- Aliquam tincidunt mauris eu risus.\n- Aliquam tincidunt mauris eu risus.\n- Nunc dignissim risus id metus.\n- Cras ornare tristique elit."
+    const user = {
+        fullname: "FULL NAME",
+        aboutMe: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        experiences: [
+            {
+                conmanyName: "krs private limited",
+                joinedAt: "2020",
+                workedTill: "till now",
+                projectName: "Project name",
+                projectDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                rolesAndResponsibilities: "- Aliquam tincidunt mauris eu risus.\n- Aliquam tincidunt mauris eu risus.\n- Nunc dignissim risus id metus.\n- Cras ornare tristique elit."
+            }
+        ],
+        projects: [
+            {
+                projectName: "Project name",
+                projectDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+            },
+            {
+                projectName: "Project name",
+                projectDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+            }
+        ],
+        skills : [ "java", "node js", "spring", "mongodb", "aws" ],
+        contact: {
+            address: "H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.",
+            email: "contact@gmail.com"
+        }
     }
 
     return (
@@ -35,7 +61,7 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
             <section>
                 <div className='user-header'>
                     <img  className='profile-photo' src={KRSLOGO} alt="Profile" />
-                    <label className='dashboard-username'>FULL NAME</label>
+                    <label className='dashboard-username'>{user.fullname}</label>
                 </div>    
             </section>
             <section>
@@ -45,9 +71,7 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                             ABOUT ME
                         </div>
                     </div>
-                    <p className='about-content'>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </p>
+                    <p className='about-content'>{user.aboutMe}</p>
                 </div>
             </section>
             <section>
@@ -58,14 +82,14 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                         </div>
                     </div>
                     <div className='company-experience'>
-                        <span className='company-name'>krs private limited</span>
-                        <span className='company-years'>2020 - till now</span>
+                        <span className='company-name'>{user.experiences[0].conmanyName}</span>
+                        <span className='company-years'>{user.experiences[0].joinedAt} - {user.experiences[0].workedTill}</span>
                     </div>
                     <div>
-                        <p className='project-title'>Project name</p>
-                        <p className='project-description'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p className='project-title'>{user.experiences[0].projectName}</p>
+                        <p className='project-description'>{user.experiences[0].projectDescription}</p>
                         <p className='roles-and-responsibilities'>Roles and Responsiblities</p>
-                        <ReactMarkdown>{content.description}</ReactMarkdown>
+                        <ReactMarkdown>{user.experiences[0].rolesAndResponsibilities}</ReactMarkdown>
                     </div>
                 </div>
             </section>
@@ -77,12 +101,12 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                         </div>
                     </div>
                     <div>
-                        <p className='project-title'>Project name</p>
-                        <p className='project-description'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p className='project-title'>{user.projects[0].projectName}</p>
+                        <p className='project-description'>{user.projects[0].projectDescription}</p>
                     </div>
                     <div>
-                        <p className='project-title'>Project name</p>
-                        <p className='project-description'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <p className='project-title'>{user.projects[1].projectName}</p>
+                        <p className='project-description'>{user.projects[1].projectDescription}</p>
                     </div>
                 </div>
             </section>
@@ -95,24 +119,11 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                     </div>
                     <div className='skills-wrapper'>
                         <div className='skills-roller'>
-                            <span className='skill-container'>
-                                java
-                            </span>
-                            <span className='skill-container'>
-                                node js
-                            </span>
-                            <span className='skill-container'>
-                                spring
-                            </span>
-                            <span className='skill-container'>
-                                node js
-                            </span>
-                            <span className='skill-container'>
-                                react js
-                            </span>
-                            <span className='skill-container'>
-                                mongodb is another
-                            </span>
+                            <span className='skill-container'>{user.skills[0]}</span>
+                            <span className='skill-container'>{user.skills[1]}</span>
+                            <span className='skill-container'>{user.skills[2]}</span>
+                            <span className='skill-container'>{user.skills[3]}</span>
+                            <span className='skill-container'>{user.skills[4]}</span>
                         </div>
                     </div>
                 </div>
@@ -125,11 +136,11 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                     <div className='contact-content'>
                         <div className='address-container'>
                             <p className='address-heading'>Address:</p>
-                            <div className='address-content'>H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.</div>
+                            <div className='address-content'>{user.contact.address}</div>
                         </div>
                         <div>
                             <p className='address-heading'>Email: </p>
-                            <div className='address-content'>contact@gmail.com</div>
+                            <div className='address-content'>{user.contact.email}</div>
                             <div className='social-container'>
                                 <a href='http://www.google.com'><img src={INSTAGRAM} alt='Instagram'/></a>
                                 <a href='http://www.google.com'><img src={TWITTER} alt='Twitter'/></a>

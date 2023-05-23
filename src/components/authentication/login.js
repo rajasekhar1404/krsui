@@ -43,10 +43,6 @@ const Login = ({ setSignup, setLogin }) => {
 
     return (
         <section>
-            {/* {
-                signup ? <div>
-                    <Signup signup={signup} setSignup={setSignup} />
-                </div> :  */}
                 <div className="login-container">
                     <img className="logoContainer" src={HomeLogo} alt="KRS" />
                     <input placeholder="Enter you username" onChange={(e) => setUser({...user, username: e.target.value})} required/>
@@ -54,7 +50,6 @@ const Login = ({ setSignup, setLogin }) => {
                     <button onClick={loginHandler}>Login</button>
                     <p>Still not registered yet? <label onClick={() => setSignup(true)} style={{color: 'blue',cursor: "pointer"}}>Register now</label></p>
                 </div>
-            {/* } */}
             <ToastContainer />
         </section>
     )
