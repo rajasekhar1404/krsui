@@ -44,7 +44,7 @@ function App() {
 }
 
   return (
-      isActive ? <Navigator setActive={setActive} /> : <DashBoardService /> // <PublicDashboard setActive={setActive} /> // <Login setActive={setActive} /> 
+      isActive ? <Navigator setActive={setActive} /> : <DashBoardService setActive={setActive} /> // <PublicDashboard setActive={setActive} /> // <Login setActive={setActive} /> 
   );
 }
 

@@ -5,7 +5,7 @@ import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 
-const Login = ({ setSignup, setLogin }) => {
+const Login = ({ setSignup, setActive }) => {
 
     const [user, setUser] = useState({
         username: '',
@@ -29,6 +29,7 @@ const Login = ({ setSignup, setLogin }) => {
             } else {
                 const data = await response.json()
                 validateUser(data)
+                setActive(true)
             }         
         } catch (err) {
             toast.error('Invalid credentials', {

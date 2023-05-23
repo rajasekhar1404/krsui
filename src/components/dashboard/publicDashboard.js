@@ -8,6 +8,9 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
 
     const user = {
         fullname: "FULL NAME",
+        username: "username",
+        email: "contact@gmail.com",
+        password: "password",
         aboutMe: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
         experiences: [
             {
@@ -32,7 +35,6 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
         skills : [ "java", "node js", "spring", "mongodb", "aws" ],
         contact: {
             address: "H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.",
-            email: "contact@gmail.com"
         }
     }
 
@@ -140,7 +142,7 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                         </div>
                         <div>
                             <p className='address-heading'>Email: </p>
-                            <div className='address-content'>{user.contact.email}</div>
+                            <div className='address-content'>{user.email}</div>
                             <div className='social-container'>
                                 <a href='http://www.google.com'><img src={INSTAGRAM} alt='Instagram'/></a>
                                 <a href='http://www.google.com'><img src={TWITTER} alt='Twitter'/></a>
