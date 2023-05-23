@@ -4,7 +4,7 @@ import INSTAGRAM from '../../static/instagram.png'
 import TWITTER from '../../static/twitter.png'
 import FACEBOOK from '../../static/facebook.png'
 
-const PublicDashboard = () => {
+const PublicDashboard = ({ setSignup, setLogin }) => {
 
     const content = {
         description : "- Aliquam tincidunt mauris eu risus.\n- Aliquam tincidunt mauris eu risus.\n- Nunc dignissim risus id metus.\n- Cras ornare tristique elit."
@@ -21,8 +21,14 @@ const PublicDashboard = () => {
                     <button>Search</button>
                 </span>
                 <span className='login-wrapper'>
-                    <button>Sign up</button>
-                    <button>Sign in</button>
+                    <button onClick={() => {
+                        setLogin(false)
+                        setSignup(true)
+                    }}>Sign up</button>
+                    <button onClick={() => {
+                        setSignup(false)
+                        setLogin(true)
+                    }}>Sign in</button>
                 </span>
             </section>
             <div className='portfolio-container'>

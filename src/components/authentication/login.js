@@ -5,14 +5,12 @@ import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 
-const Login = ({ setActive }) => {
+const Login = ({ setSignup, setLogin }) => {
 
     const [user, setUser] = useState({
         username: '',
         password: ''
     })
-
-    const [signup, setSignup] = useState(false)
 
     async function loginHandler () {
         try {
@@ -41,22 +39,22 @@ const Login = ({ setActive }) => {
 
     function validateUser(data) {
         localStorage.setItem('key', data.key)
-        setActive(true)
     }
 
     return (
         <section>
-            {
+            {/* {
                 signup ? <div>
                     <Signup signup={signup} setSignup={setSignup} />
-                </div> : <div className="login-container">
+                </div> :  */}
+                <div className="login-container">
                     <img className="logoContainer" src={HomeLogo} alt="KRS" />
                     <input placeholder="Enter you username" onChange={(e) => setUser({...user, username: e.target.value})} required/>
                     <input placeholder="Enter you password" type="password" onChange={(e) => setUser({...user, password: e.target.value})} required/>
                     <button onClick={loginHandler}>Login</button>
-                    <p>Still not registered yet? <label onClick={() => setSignup(!signup)} style={{color: 'blue',cursor: "pointer"}}>Register now</label></p>
+                    <p>Still not registered yet? <label onClick={() => setSignup(true)} style={{color: 'blue',cursor: "pointer"}}>Register now</label></p>
                 </div>
-            }
+            {/* } */}
             <ToastContainer />
         </section>
     )

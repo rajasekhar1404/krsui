@@ -5,6 +5,7 @@ import Login from './components/authentication/login';
 import { LOGGEDINUSER } from './components/apis/taskApis';
 import { OK } from './components/utils/constants';
 import PublicDashboard from './components/dashboard/publicDashboard';
+import DashBoardService from './components/dashboard/dashboardService';
 
 function App() {
 
@@ -43,7 +44,7 @@ function App() {
 }
 
   return (
-      isActive ? <Navigator setActive={setActive} /> : <Login setActive={setActive} /> // <PublicDashboard /> //
+      isActive ? <Navigator setActive={setActive} /> : <DashBoardService /> // <PublicDashboard setActive={setActive} /> // <Login setActive={setActive} /> 
   );
 }
 

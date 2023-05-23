@@ -4,7 +4,7 @@ import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 
-const Signup = ({ signup, setSignup }) => {
+const Signup = ({ setSignup, setLogin }) => {
 
     const [user, setUser] = useState({
         fullname: '',
@@ -36,7 +36,8 @@ const Signup = ({ signup, setSignup }) => {
                     position: toast.POSITION.BOTTOM_RIGHT
                 })
             } else {
-                setSignup(!signup)
+                    setSignup(false)
+                    setLogin(true)
             }
         } catch(err) {
             toast.error(err.message, {
@@ -52,7 +53,10 @@ const Signup = ({ signup, setSignup }) => {
             <input placeholder="Enter your username" name="username" onChange={changeHandler} required/>
             <input placeholder="Enter your password" type="password" name="password" onChange={changeHandler} required/>
             <button onClick={registerHandler}>Register</button>
-            <p>Already registered? <label onClick={() => setSignup(!signup)} style={{color: 'blue',cursor: "pointer"}}>Login here</label></p>
+            <p>Already registered? <label onClick={() => {
+                setSignup(false)
+                setLogin(true)
+            }} style={{color: 'blue',cursor: "pointer"}}>Login here</label></p>
             <ToastContainer />
         </div>
     )
