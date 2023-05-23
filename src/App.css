@@ -437,6 +437,7 @@ button {
   font-weight: bold;
   position: relative;
   left: 2%;
+  text-transform: uppercase;
 }
 
 .section-wrapper {
@@ -677,11 +678,11 @@ button {
   padding-right: 1%;
   padding-bottom: 1%;
   background-color: #eee;
-  width: 93%;
+  width: 97%;
   border: 2px;
   margin-top: 3px;
 }
 
 table {
-  width: 600px;
+  width: 100%;
 }
