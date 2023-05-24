@@ -234,15 +234,14 @@ const UpdateDashboard = () => {
     }
 
     const handleSubmit = () => {
-        setUser({
+        const newUser = {
             ...user,
             contact: userContact,
             experiences: userExperienceArray,
             projects: projectsArray,
             skills: skills
-        })
+        }
     }
-    console.log(user)
     
     return (
         <span>
@@ -399,7 +398,7 @@ const UpdateDashboard = () => {
                             <div className='skills-roller'>
                                 <span className='skill-container'>{newSkill}</span>
                             {
-                            skills && skills.map((eachSkill, index) => index !== 0 && <><span className='skill-container'>{eachSkill}</span></>
+                            skills && skills.map((eachSkill, index) => index !== 0 && <span className='skill-container' key={index}>{eachSkill}</span>
                             )
                         }
 
