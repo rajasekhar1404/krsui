@@ -6,7 +6,8 @@ import FACEBOOK from '../../static/facebook.png'
 import PLUSICON from '../../static/plus.png'
 import { useState } from 'react'
 
-const UpdateDashboard = () => {
+const UpdateDashboard = ({userid}) => {
+    console.log(userid)
     const initialExperience = {
         companyName: "Random private limited",
         joinedAt: "2020",
