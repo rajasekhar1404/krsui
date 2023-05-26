@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "/krsui/static/css/main.9f082407.css",
-    "main.js": "/krsui/static/js/main.6e3934ad.js",
+    "main.css": "/krsui/static/css/main.5f1e44f0.css",
+    "main.js": "/krsui/static/js/main.ec35ca2b.js",
     "static/media/user-profilephoto.png": "/krsui/static/media/user-profilephoto.539c5809bc486ba8aafb.png",
     "static/media/stopwatch_delyed.png": "/krsui/static/media/stopwatch_delyed.7413c9a25194943c9080.png",
     "static/media/instagram.png": "/krsui/static/media/instagram.ac6740416d257e3d88c8.png",
     "static/media/twitter.png": "/krsui/static/media/twitter.fc7a4fd6581ea9e8812a.png",
     "static/media/facebook.png": "/krsui/static/media/facebook.ee77dbf96df46376b238.png",
+    "static/media/plus.png": "/krsui/static/media/plus.3b2d1e5170169b7fbefd.png",
     "static/media/stopwatch.svg": "/krsui/static/media/stopwatch.8c0e617ce10b7f17ac04.svg",
     "static/media/journal-text.svg": "/krsui/static/media/journal-text.aa0b3bec86773faccc9fe5ab956c75a7.svg",
     "static/media/card-checklist.svg": "/krsui/static/media/card-checklist.8cf9b949372f01573663151056fda808.svg",
@@ -17,11 +18,11 @@
     "static/media/title.svg": "/krsui/static/media/title.07440f1a049b738b26dda0ac5be99b07.svg",
     "static/media/calendar-plus.svg": "/krsui/static/media/calendar-plus.b8df4477421039ab7e731a074db77877.svg",
     "static/media/list.svg": "/krsui/static/media/list.f98b98b4905b36b844a65327ecaadc32.svg",
-    "main.9f082407.css.map": "/krsui/static/css/main.9f082407.css.map",
-    "main.6e3934ad.js.map": "/krsui/static/js/main.6e3934ad.js.map"
+    "main.5f1e44f0.css.map": "/krsui/static/css/main.5f1e44f0.css.map",
+    "main.ec35ca2b.js.map": "/krsui/static/js/main.ec35ca2b.js.map"
   },
   "entrypoints": [
-    "static/css/main.9f082407.css",
-    "static/js/main.6e3934ad.js"
+    "static/css/main.5f1e44f0.css",
+    "static/js/main.ec35ca2b.js"
   ]
 }
