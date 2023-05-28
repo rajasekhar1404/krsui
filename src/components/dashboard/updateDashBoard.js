@@ -4,10 +4,12 @@ import INSTAGRAM from '../../static/instagram.png'
 import TWITTER from '../../static/twitter.png'
 import FACEBOOK from '../../static/facebook.png'
 import PLUSICON from '../../static/plus.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { LOGGEDINUSER, UPDATE_USER } from '../apis/taskApis'
+import { OK } from '../utils/constants'
 
-const UpdateDashboard = ({userid}) => {
-    console.log(userid)
+const UpdateDashboard = ({setUpdateDashboard}) => {
+/*
     const initialExperience = {
         companyName: "Random private limited",
         joinedAt: "2020",
@@ -16,7 +18,7 @@ const UpdateDashboard = ({userid}) => {
         projectDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
         rolesAndResponsibilities: "- Aliquam tincidunt mauris eu risus.\n- Aliquam tincidunt mauris eu risus.\n- Nunc dignissim risus id metus.\n- Cras ornare tristique elit."
     }
-
+*/
     const initialProject = {
         projectName: "Project name",
         projectDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
@@ -40,15 +42,33 @@ const UpdateDashboard = ({userid}) => {
         skills : [],
         contact: {}
     }
-    
+   
     const [user, setUser] = useState(initialUser)
-    const [userExperience, setUserExperience] = useState(initialExperience)
+    const [userExperience, setUserExperience] = useState({})
     const [userExperienceArray, setUserExperienceArray] = useState([])
     const [projectsArray, setProjectsArray] = useState([])
     const [project, setProject] = useState(initialProject)
     const [skills, setSkills] = useState([])
     const [newSkill, setNewSkill] = useState('skill')
     const [userContact, setUserContact] = useState(initialContact)
+
+    useEffect(() => {
+        getLoggedInUser()
+    }, [])
+
+    const getLoggedInUser = async () => {
+        const response = await fetch(LOGGEDINUSER, {
+            method: 'GET',
+            headers: {
+                'Authorization' : `Bearer ${localStorage.getItem('key')}`
+            }
+        })
+
+        if (response.status === OK) {
+            const data = await response.json()
+            setUser(data)
+        }
+    }
     
     const experienceChangeHandler = (e) => {
         setUserExperience(prev => ({
@@ -69,10 +89,15 @@ const UpdateDashboard = ({userid}) => {
     }
 
     const contactChangeHandler = (e) => {
-        setUserContact({
-            ...userContact,
+        setUserContact(prev => ({
+            ...prev,
             [e.target.name]:e.target.value
-        })
+        }))
+
+        setUser(prev => ({
+            ...prev,
+            contact: userContact
+        }))
     }
 
     const addExperienceSection = () => {
@@ -159,7 +184,7 @@ const UpdateDashboard = ({userid}) => {
             userExperience
         ])
 
-        setUserExperience(initialExperience)
+        setUserExperience({})
     }
 
     const addProjectSection = () => {
@@ -234,14 +259,30 @@ const UpdateDashboard = ({userid}) => {
         })
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const newUser = {
-            ...user,
+            _id: user._id,
+            fullname: user.fullname,
+            aboutMe: user.aboutMe,
             contact: userContact,
             experiences: userExperienceArray,
             projects: projectsArray,
             skills: skills
         }
+
+        const response = await fetch(UPDATE_USER, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization' : `Bearer ${localStorage.getItem('key')}`
+            },
+            body: JSON.stringify(newUser)
+        })
+
+        if (response.status === OK) {
+            setUpdateDashboard(false)
+        }
+        
     }
     
     return (
@@ -258,11 +299,11 @@ const UpdateDashboard = ({userid}) => {
                         <tbody>
                             <tr className='update-portfolio-form-row'>
                                 <td>Full name</td>
-                                <td><input name='fullname' onChange={changeHandler} placeholder="Enter your fullname"/></td>
+                                <td><input name='fullname' value={user.fullname} onChange={changeHandler} placeholder="Enter your fullname"/></td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>About me</td>
-                                <td><textarea name='aboutMe' onChange={changeHandler} placeholder="Enter about your profile summary"></textarea></td>
+                                <td><textarea name='aboutMe' value={user.aboutMe} onChange={changeHandler} placeholder="Enter about your profile summary"></textarea></td>
                             </tr>
                         </tbody>
                     </table>
@@ -292,25 +333,26 @@ const UpdateDashboard = ({userid}) => {
                         <tbody>
                             <tr className='update-portfolio-form-row'>
                                 <td>Address</td>
-                                <td><textarea name='address' onChange={contactChangeHandler} placeholder="Enter your present address"></textarea></td>
+                                <td><textarea name='address' value={userContact.address} onChange={contactChangeHandler} placeholder="Enter your present address"></textarea></td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>Email</td>
-                                <td><input name='email' onChange={changeHandler} placeholder='Enter your email'/></td>
+                                <td><input name='email' value={user.email} onChange={changeHandler} placeholder='Enter your email'/></td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>Facebook</td>
-                                <td><input name='facebook' onChange={contactChangeHandler} placeholder='Enter your facebook profile url'/></td>
+                                <td><input name='facebook' value={userContact.facebook} onChange={contactChangeHandler} placeholder='Enter your facebook profile url'/></td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>Twitter</td>
-                                <td><input name='twitter' onChange={contactChangeHandler} placeholder='Enter your twitter profile url'/></td>
+                                <td><input name='twitter' value={userContact.twitter} onChange={contactChangeHandler} placeholder='Enter your twitter profile url'/></td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>Instagram</td>
-                                <td><input name='instagram' onChange={contactChangeHandler} placeholder='Enter your instagram profile url'/></td>
+                                <td><input name='instagram' value={userContact.instagram} onChange={contactChangeHandler} placeholder='Enter your instagram profile url'/></td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
+                                <td><button onClick={() => setUpdateDashboard(false)}>Cancel</button></td>
                                 <td align='right' colSpan={2}><button onClick={handleSubmit}>Submit</button></td>
                             </tr>
                         </tbody>
