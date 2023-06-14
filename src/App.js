@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Navigator from './components/navigator';
-import Login from './components/authentication/login';
 import { LOGGEDINUSER } from './components/apis/taskApis';
 import { OK } from './components/utils/constants';
-import PublicDashboard from './components/dashboard/publicDashboard';
 import DashBoardService from './components/dashboard/dashboardService';
 
 function App() {

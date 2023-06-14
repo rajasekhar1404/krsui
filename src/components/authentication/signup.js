@@ -3,7 +3,6 @@ import { REGISTER } from "../apis/taskApis"
 import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
-import PublicDashboard from "../dashboard/publicDashboard"
 import UpdateDashboard from "../dashboard/updateDashBoard"
 
 const Signup = ({ setSignup, setLogin }) => {
