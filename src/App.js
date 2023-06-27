@@ -14,6 +14,7 @@ function App() {
   }, [isActive])
   
   const verifyUser = () => {
+    // testing
     const token = localStorage.getItem('key')
     if (token) {
       const isLoggedIn = getLoggedInUser()
