@@ -7,50 +7,24 @@ import PLUSICON from '../../static/plus.png'
 import { useEffect, useState } from 'react'
 import { LOGGEDINUSER, UPDATE_USER } from '../apis/taskApis'
 import { OK } from '../utils/constants'
+import { AboutMeHolder, ContactHolder, ExperienceBlock, ExperienceHolder, ProjectBlock, ProjectHolder, SkillHolder, SkillsBlock } from '../utils/userPortfolioBlocks'
 
 const UpdateDashboard = ({setUpdateDashboard}) => {
-/*
-    const initialExperience = {
-        companyName: "Random private limited",
-        joinedAt: "2020",
-        workedTill: "till now",
-        projectName: "Project name",
-        projectDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        rolesAndResponsibilities: "- Aliquam tincidunt mauris eu risus.\n- Aliquam tincidunt mauris eu risus.\n- Nunc dignissim risus id metus.\n- Cras ornare tristique elit."
-    }
-*/
-    const initialProject = {
-        projectName: "Project name",
-        projectDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-    }
-
-    const initialContact = {
-        address: "H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.H-no: 2-40, bikkumalla, noothankal, suryapet, 508221.",
-        facebook: 'https://www.facebook.com/',
-        twitter: 'https://twitter.com/',
-        instagram: 'https://www.instagram.com/'
-    }
 
     const initialUser = {
-        fullname: "FULL NAME",
-        username: "username",
-        email: "contact@gmail.com",
-        password: "password",
-        aboutMe: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        fullname: "",
+        username: "",
+        email: "",
+        password: "",
+        aboutMe: "",
         experiences: [],
         projects: [],
         skills : [],
-        contact: {}
+        contact: {},
+        isPublic: false
     }
    
     const [user, setUser] = useState(initialUser)
-    const [userExperience, setUserExperience] = useState({})
-    const [userExperienceArray, setUserExperienceArray] = useState([])
-    const [projectsArray, setProjectsArray] = useState([])
-    const [project, setProject] = useState(initialProject)
-    const [skills, setSkills] = useState([])
-    const [newSkill, setNewSkill] = useState('skill')
-    const [userContact, setUserContact] = useState(initialContact)
 
     useEffect(() => {
         getLoggedInUser()
@@ -69,206 +43,111 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
             setUser(data)
         }
     }
-    
-    const experienceChangeHandler = (e) => {
-        setUserExperience(prev => ({
-            ...prev,
-            [e.target.name]:e.target.value
-        }))
-    }
 
-    const projectChangeHandler = (e) => {
-        setProject(prev => ({
-            ...prev,
-            [e.target.name]:e.target.value
-        }))
-    }
+    const removeProject = () => {
 
-    const skillChangeHandler = (e) => {
-        setNewSkill(e.target.value)
-    }
+        let lastProjectRemoved = user.projects.filter(proj => proj.count !== user.projects.length)
 
-    const contactChangeHandler = (e) => {
-        setUserContact(prev => ({
-            ...prev,
-            [e.target.name]:e.target.value
-        }))
-
-        setUser(prev => ({
-            ...prev,
-            contact: userContact
-        }))
-    }
-
-    const addExperienceSection = () => {
-
-        var newTable = document.createElement('table')
-        var tbody = document.createElement('tbody')
-
-        newTable.appendChild(tbody)
-
-        var companyNameRow = document.createElement('tr');
-        companyNameRow.className = "update-portfolio-form-row"
-        
-        companyNameRow.innerHTML = `
-          <td>Company name</td>
-          <td><input name='companyName' placeholder="Enter your company name"/></td>
-        `;
-
-        var companyNameBox = companyNameRow.querySelector('input[name="companyName"]');
-        companyNameBox.addEventListener('change', experienceChangeHandler);
-
-        tbody.appendChild(companyNameRow);
-
-        var joinedAtRow = document.createElement('tr');
-        joinedAtRow.className = "update-portfolio-form-row"
-        joinedAtRow.innerHTML = `
-          <td>Joined at</td>
-          <td><input name='joinedAt' type='date'/></td>
-        `;
-        tbody.appendChild(joinedAtRow);
-
-        var joinedAtBox = joinedAtRow.querySelector('input[name="joinedAt"]');
-        joinedAtBox.addEventListener('change', experienceChangeHandler);
-
-        var relievedAtRow = document.createElement('tr');
-        relievedAtRow.className = "update-portfolio-form-row"
-        relievedAtRow.innerHTML = `
-          <td>Relieved at</td>
-          <td><input name='workedTill' type='date'/></td>
-        `;
-        tbody.appendChild(relievedAtRow);
-
-        var relievedAtBox = relievedAtRow.querySelector('input[name="workedTill"]');
-        relievedAtBox.addEventListener('change', experienceChangeHandler);
-
-        var projectNameRow = document.createElement('tr');
-        projectNameRow.className = "update-portfolio-form-row"
-        projectNameRow.innerHTML = `
-          <td>Project name</td>
-          <td><input name='projectName' placeholder='Enter your project name'/></td>
-        `;
-        tbody.appendChild(projectNameRow);
-
-        var projectNameBox = projectNameRow.querySelector('input[name="projectName"]');
-        projectNameBox.addEventListener('change', experienceChangeHandler);
-
-        var projectDescriptionRow = document.createElement('tr');
-        projectDescriptionRow.className = "update-portfolio-form-row"
-        projectDescriptionRow.innerHTML = `
-          <td>Project description</td>
-          <td><textarea name='projectDescription' placeholder="Enter your project description"></textarea></td>
-        `;
-        tbody.appendChild(projectDescriptionRow);
-
-        var projectDescriptionBox = projectDescriptionRow.querySelector('textarea[name="projectDescription"]');
-        projectDescriptionBox.addEventListener('change', experienceChangeHandler);
-
-        var rolesResponsibilitiesRow = document.createElement('tr');
-        rolesResponsibilitiesRow.className = "update-portfolio-form-row"
-        rolesResponsibilitiesRow.innerHTML = `
-          <td>Roles & responsibilities</td>
-          <td><textarea name='rolesAndResponsibilities' placeholder="Enter your project roles & responsibilities"></textarea></td>
-        `;
-        tbody.appendChild(rolesResponsibilitiesRow);
-
-        var rolesResponsibilitiesBox = rolesResponsibilitiesRow.querySelector('textarea[name="rolesAndResponsibilities"]');
-        rolesResponsibilitiesBox.addEventListener('change', experienceChangeHandler);
-
-
-        var plusIconRow = document.getElementById('experiences');
-        plusIconRow.parentNode.insertBefore(newTable, plusIconRow);
-
-        setUserExperienceArray([
-            ...userExperienceArray,
-            userExperience
-        ])
-
-        setUserExperience({})
-    }
-
-    const addProjectSection = () => {
-        var newTable = document.createElement('table')
-        var tbody = document.createElement('tbody')
-
-        newTable.appendChild(tbody)
-
-        var projectNameRow = document.createElement('tr');
-        projectNameRow.className = "update-portfolio-form-row"
-        projectNameRow.innerHTML = `
-            <td>Project name</td>
-            <td><input name='projectName' placeholder='Enter your project name'/></td>
-        `
-
-        var projectNameBox = projectNameRow.querySelector('input[name="projectName"]');
-        projectNameBox.addEventListener('change', projectChangeHandler);
-
-
-        var projectDescriptionRow = document.createElement('tr');
-        projectDescriptionRow.className = "update-portfolio-form-row"
-        projectDescriptionRow.innerHTML = `
-            <td>Project description</td>
-            <td><textarea name='projectDescription' placeholder="Enter your project description"></textarea></td>
-        `
-
-        var projectDescriptionBox = projectDescriptionRow.querySelector('textarea[name="projectDescription"]');
-        projectDescriptionBox.addEventListener('change', projectChangeHandler);
-
-        tbody.appendChild(projectNameRow)
-        tbody.appendChild(projectDescriptionRow)
-
-        var plusIconRow = document.getElementById('projects');
-        plusIconRow.parentNode.insertBefore(newTable, plusIconRow);
-
-        setProjectsArray([
-            ...projectsArray,
-            project
-        ])
-        setProject(initialProject)
-    }
-
-    const addSkillsSection = () => {
-        var newTable = document.createElement('table')
-        var tbody = document.createElement('tbody')
-
-        newTable.appendChild(tbody)
-        var skillRow = document.createElement('tr');
-        skillRow.className = "update-portfolio-form-row"
-        skillRow.innerHTML = `
-            <td>Skill</td>
-            <td><input name='skill' placeholder="Enter your skill"></input></td>
-        `
-
-        var skillBox = skillRow.querySelector('input[name="skill"]');
-        skillBox.addEventListener('change', skillChangeHandler);
-
-        tbody.appendChild(skillRow)
-        var plusIconRow = document.getElementById('skills');
-        plusIconRow.parentNode.insertBefore(newTable, plusIconRow);
-
-        setSkills([
-            ...skills,
-            newSkill
-        ])
-    }
-
-    const changeHandler = (e) => {
         setUser({
             ...user,
-            [e.target.name]:e.target.value
+            projects: lastProjectRemoved
         })
     }
 
-    const handleSubmit = async () => {
-        const newUser = {
-            _id: user._id,
-            fullname: user.fullname,
-            aboutMe: user.aboutMe,
-            contact: userContact,
-            experiences: userExperienceArray,
-            projects: projectsArray,
-            skills: skills
+    const addAnotherExperience = () => {
+        setUser({
+            ...user,
+            experiences: [
+                ...user.experiences,
+                {
+                    count: user.experiences.length + 1,
+                    companyName: "",
+                    joinedAt: "",
+                    workedTill: "till date",
+                    projectName: "",
+                    projectDescription: "",
+                    rolesAndResponsibilities: ""
+                }
+            ]
+        })
+    }
+
+    const removeExperience = () => {
+
+        let lastExperienceRemoved = user.experiences.filter(exp => exp.count !== user.experiences.length)
+
+        setUser({
+            ...user,
+            experiences: lastExperienceRemoved
+        })
+    }
+
+    const addProjectSection = () => {
+        setUser({
+            ...user,
+            projects: [
+                ...user.projects,
+                {
+                    count: user.projects.length + 1,
+                    projectName: "",
+                    projectDescription: ""
+                }
+            ]
+        })
+    }
+
+    const addSkillsSection = () => {
+        setUser({
+            ...user,
+            skills: [
+                ...user.skills,
+                {
+                    count: user.skills.length + 1,
+                    skill: ""
+                }
+            ]
+        })
+    }
+
+    const removeSkill = () => {
+
+        let lastSkillRemoved = user.skills.filter(eachSkill => eachSkill.count !== user.skills.length)
+
+        setUser({
+            ...user,
+            skills: lastSkillRemoved
+        })
+    }
+
+    const changeHandler = (e) => {
+
+        if (e.target.id.startsWith("contact")) {
+            setUser({
+                ...user,
+                contact: {
+                    ...user.contact,
+                    [e.target.name]:e.target.value
+                }
+            })
+            return
         }
+
+        if (e.target.name === "isPublic") {
+            
+                    setUser({
+                        ...user,
+                        [e.target.name]:e.target.checked
+                    })
+            return
+        }
+        
+                setUser({
+                    ...user,
+                    [e.target.name]:e.target.value
+                })
+    }
+
+    const handleSubmit = async () => {
 
         const response = await fetch(UPDATE_USER, {
             method: 'POST',
@@ -276,7 +155,7 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
                 'Content-Type':'application/json',
                 'Authorization' : `Bearer ${localStorage.getItem('key')}`
             },
-            body: JSON.stringify(newUser)
+            body: JSON.stringify(user)
         })
 
         if (response.status === OK) {
@@ -284,7 +163,7 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
         }
         
     }
-    
+
     return (
         <span>
 
@@ -310,21 +189,54 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
 
                     <div className='section-container'>
                         <label>Experiences</label>
-                        <img className='plus-icon' onClick={addExperienceSection} src={PLUSICON} alt='add new'/>
+                        <img className='plus-icon' onClick={removeExperience} src={PLUSICON} alt='add new'/>
+                        <img className='plus-icon' onClick={addAnotherExperience} src={PLUSICON} alt='add new'/>
                     </div>
-                    <div id='experiences'></div>
+                    <div>
+                        {
+                            user.experiences.map((eachExperience, index) => <ExperienceBlock 
+                                    key={index}
+                                    user={user}
+                                    setUser={setUser}
+                                    eachExperience={eachExperience}
+                                />
+                            )
+                        }
+                    </div>
 
                     <div className='section-container'>
                         <label>Projects</label>
+                        <img className='plus-icon' onClick={removeProject} src={PLUSICON} alt='add new'/>
                         <img className='plus-icon' onClick={addProjectSection} src={PLUSICON} alt='add new'/>
                     </div>
-                    <div id='projects'></div>
+                    <div>
+                        {
+                            user.projects.map((eachProject, index) => <ProjectBlock
+                                    key={index}
+                                    user={user}
+                                    setUser={setUser}
+                                    eachProject={eachProject}
+                                />
+                            )
+                        }
+                    </div>
 
                     <div className='section-container'>
                         <label>Skills</label>
+                        <img className='plus-icon' onClick={removeSkill} src={PLUSICON} alt='add new'/>
                         <img className='plus-icon' onClick={addSkillsSection} src={PLUSICON} alt='add new'/>
                     </div>
-                    <div id='skills'></div>
+                    <div>
+                        {
+                            user.skills.map((eachSkill, index) => <SkillsBlock 
+                                    key={index}
+                                    user={user}
+                                    setUser={setUser}
+                                    eachSkill={eachSkill}
+                                />
+                            )
+                        }
+                    </div>
 
                     <div className='section-container'>
                         <label>Contact</label>
@@ -333,23 +245,62 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
                         <tbody>
                             <tr className='update-portfolio-form-row'>
                                 <td>Address</td>
-                                <td><textarea name='address' value={userContact.address} onChange={contactChangeHandler} placeholder="Enter your present address"></textarea></td>
-                            </tr>
-                            <tr className='update-portfolio-form-row'>
-                                <td>Email</td>
-                                <td><input name='email' value={user.email} onChange={changeHandler} placeholder='Enter your email'/></td>
+                                <td>
+                                    <textarea 
+                                        id='contact-address'
+                                        name='address' 
+                                        value={user.contact.address} 
+                                        onChange={changeHandler} 
+                                        placeholder="Enter your present address"
+                                    ></textarea>
+                                </td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>Facebook</td>
-                                <td><input name='facebook' value={userContact.facebook} onChange={contactChangeHandler} placeholder='Enter your facebook profile url'/></td>
+                                <td>
+                                    <input 
+                                        id="contact-fb"
+                                        name='facebook' 
+                                        value={user.contact.facebook} 
+                                        onChange={changeHandler} 
+                                        placeholder='Enter your facebook profile url'
+                                    />
+                                </td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>Twitter</td>
-                                <td><input name='twitter' value={userContact.twitter} onChange={contactChangeHandler} placeholder='Enter your twitter profile url'/></td>
+                                <td>
+                                    <input 
+                                        id="contact-twitter"
+                                        name='twitter' 
+                                        value={user.contact.twitter} 
+                                        onChange={changeHandler} 
+                                        placeholder='Enter your twitter profile url'
+                                    />
+                                </td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td>Instagram</td>
-                                <td><input name='instagram' value={userContact.instagram} onChange={contactChangeHandler} placeholder='Enter your instagram profile url'/></td>
+                                <td>
+                                    <input 
+                                        id="contact-insta"
+                                        name='instagram' 
+                                        value={user.contact.instagram} 
+                                        onChange={changeHandler} 
+                                        placeholder='Enter your instagram profile url'
+                                    />
+                                </td>
+                            </tr>
+                            <tr className='update-portfolio-form-row'>
+                                <td>Public</td>
+                                <td>
+                                    <input 
+                                        name='isPublic'
+                                        type='checkbox'
+                                        checked={user.isPublic}
+                                        onChange={changeHandler}
+                                    />
+                                </td>
                             </tr>
                             <tr className='update-portfolio-form-row'>
                                 <td><button onClick={() => setUpdateDashboard(false)}>Cancel</button></td>
@@ -364,113 +315,11 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
 
             <div className='update-portfolio-dashboard'>
                 <div className='update-portfolio-container'>
-                <section>
-                    <div className='user-header'>
-                        <img  className='profile-photo' src={KRSLOGO} alt="Profile" />
-                        <label className='dashboard-username'>{user.fullname}</label>
-                    </div>    
-                </section>
-                <section>
-                    <div>
-                        <div className='section-wrapper'>
-                            <div className='section-type'>
-                                ABOUT ME
-                            </div>
-                        </div>
-                        <p className='about-content'>&emsp;&emsp;&emsp;{user.aboutMe}</p>
-                    </div>
-                </section>
-                <section>
-                    <div>
-                        <div className='section-wrapper'>
-                            <div className='section-type'>
-                                Experiences
-                            </div>
-                        </div>
-                       {
-                        userExperienceArray && userExperienceArray.map((eachExperience, index) => index !== 0 && <div key={eachExperience.companyName}><div className='company-experience'>
-                            <span className='company-name'>{eachExperience.companyName}</span>
-                            <span className='company-years'>{eachExperience.joinedAt} - {eachExperience.workedTill}</span>
-                        </div>
-                        <div>
-                            <p className='project-title'>{eachExperience.projectName}</p>
-                            <p className='project-description'>{eachExperience.projectDescription}</p>
-                            <p className='roles-and-responsibilities'>Roles and Responsiblities</p>
-                            <ReactMarkdown>{eachExperience.rolesAndResponsibilities}</ReactMarkdown>
-                        </div></div>)
-                       } 
-                        <div className='company-experience'>
-                            <span className='company-name'>{userExperience.companyName}</span>
-                            <span className='company-years'>{userExperience.joinedAt} - {userExperience.workedTill}</span>
-                        </div>
-                        <div>
-                            <p className='project-title'>{userExperience.projectName}</p>
-                            <p className='project-description'>{userExperience.projectDescription}</p>
-                            <p className='roles-and-responsibilities'>Roles and Responsiblities</p>
-                            <ReactMarkdown>{userExperience.rolesAndResponsibilities}</ReactMarkdown>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <div>
-                        <div className='section-wrapper'>
-                            <div className='section-type'>
-                                Projects
-                            </div>
-                        </div>
-                    {
-                        projectsArray && projectsArray.map((eachProject, index) => index !== 0 && <div>
-                            <p className='project-title'>{eachProject.projectName}</p>
-                            <p className='project-description'>{eachProject.projectDescription}</p>
-                        </div>)
-                    }
-                        <div>
-                            <p className='project-title'>{project.projectName}</p>
-                            <p className='project-description'>{project.projectDescription}</p>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <div>
-                        <div className='section-wrapper'>
-                            <div className='section-type'>
-                                Skills
-                            </div>
-                        </div>
-                        <div className='skills-wrapper'>
-                            <div className='skills-roller'>
-                                <span className='skill-container'>{newSkill}</span>
-                            {
-                            skills && skills.map((eachSkill, index) => index !== 0 && <span className='skill-container' key={index}>{eachSkill}</span>
-                            )
-                        }
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section>
-                    <div className='contact-container'>
-                        <div>
-                            <div className='contact-heading'>Contact me</div>
-                        </div>
-                        <div className='contact-content'>
-                            <div className='address-container'>
-                                <p className='address-heading'>Address:</p>
-                                <div className='address-content'>{userContact.address}</div>
-                            </div>
-                            <div>
-                                <p className='address-heading'>Email: </p>
-                                <div className='address-content'>{user.email}</div>
-                                <div className='social-container'>
-                                    <a href={userContact.instagram}><img src={INSTAGRAM} alt='Instagram'/></a>
-                                    <a href={userContact.twitter}><img src={TWITTER} alt='Twitter'/></a>
-                                    <a href={userContact.facebook}><img src={FACEBOOK} alt='Facebook'/></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe}/>
+                <ExperienceHolder experiences={user.experiences}/>
+                <ProjectHolder projects={user.projects}/>
+                <SkillHolder skills={user.skills}/>
+                <ContactHolder contact={user.contact} email={user.email}/>
                 </div>
             </div>
         </span>
