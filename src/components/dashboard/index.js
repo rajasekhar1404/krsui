@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { LOGGEDINUSER } from "../apis/taskApis";
 import UpdateDashboard from "./updateDashBoard";
-import KRSLOGO from '../../static/user-profilephoto.png'
+import KRSLOGO from '../../static/title.svg'
 import { AboutMeHolder, ContactHolder, ExperienceHolder, ProjectHolder, SkillHolder } from "../utils/userPortfolioBlocks";
 
 const DashBoard = () => {
@@ -45,7 +45,7 @@ const DashBoard = () => {
                     </span>
                 </section>
                 <div className='portfolio-container'>
-                    <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe}/>
+                    <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe} profilePhoto={user.profilePhoto}/>
                     <ExperienceHolder experiences={user.experiences}/>
                     <ProjectHolder projects={user.projects}/>
                     <SkillHolder skills={user.skills}/>

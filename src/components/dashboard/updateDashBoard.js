@@ -1,8 +1,3 @@
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
-import KRSLOGO from '../../static/user-profilephoto.png'
-import INSTAGRAM from '../../static/instagram.png'
-import TWITTER from '../../static/twitter.png'
-import FACEBOOK from '../../static/facebook.png'
 import PLUSICON from '../../static/plus.png'
 import { useEffect, useState } from 'react'
 import { LOGGEDINUSER, UPDATE_USER } from '../apis/taskApis'
@@ -14,6 +9,7 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
     const initialUser = {
         fullname: "",
         username: "",
+        profilePhoto: "",
         email: "",
         password: "",
         aboutMe: "",
@@ -121,6 +117,19 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
 
     const changeHandler = (e) => {
 
+        if (e.target.name === "profilePhoto") {
+            let file = e.target.files[0]
+            let reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = () => {
+                setUser({
+                    ...user,
+                    profilePhoto: reader.result
+                })
+            }
+            return
+        }
+
         if (e.target.id.startsWith("contact")) {
             setUser({
                 ...user,
@@ -133,18 +142,16 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
         }
 
         if (e.target.name === "isPublic") {
-            
-                    setUser({
-                        ...user,
-                        [e.target.name]:e.target.checked
-                    })
+            setUser({
+                ...user,
+                [e.target.name]:e.target.checked
+            })
             return
         }
-        
-                setUser({
-                    ...user,
-                    [e.target.name]:e.target.value
-                })
+            setUser({
+                ...user,
+                [e.target.name]:e.target.value
+            })
     }
 
     const handleSubmit = async () => {
@@ -183,6 +190,16 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
                             <tr className='update-portfolio-form-row'>
                                 <td>About me</td>
                                 <td><textarea name='aboutMe' value={user.aboutMe} onChange={changeHandler} placeholder="Enter about your profile summary"></textarea></td>
+                            </tr>
+                            <tr className='update-portfolio-form-row'>
+                                <td>Profile Photo</td>
+                                <td>
+                                    <input 
+                                        type='file'
+                                        name="profilePhoto"
+                                        onChange={changeHandler}
+                                    />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -315,7 +332,7 @@ const UpdateDashboard = ({setUpdateDashboard}) => {
 
             <div className='update-portfolio-dashboard'>
                 <div className='update-portfolio-container'>
-                <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe}/>
+                <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe} profilePhoto={user.profilePhoto}/>
                 <ExperienceHolder experiences={user.experiences}/>
                 <ProjectHolder projects={user.projects}/>
                 <SkillHolder skills={user.skills}/>

@@ -289,12 +289,12 @@ export const ContactHolder = ({ contact, email }) => {
     )
 }
 
-export const AboutMeHolder = ({ fullname, aboutMe }) => {
+export const AboutMeHolder = ({ fullname, aboutMe, profilePhoto }) => {
     return (
         <>
             <section>
                 <div className='user-header'>
-                    <img  className='profile-photo' src={KRSLOGO} alt="Profile" />
+                    <img  className='profile-photo' src={profilePhoto || KRSLOGO} alt="Profile" />
                     <label className='dashboard-username'>{fullname}</label>
                 </div>    
             </section>

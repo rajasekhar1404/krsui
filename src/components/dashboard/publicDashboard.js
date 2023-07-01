@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import KRSLOGO from '../../static/user-profilephoto.png'
+import KRSLOGO from '../../static/title.svg'
 import { AboutMeHolder, ContactHolder, ExperienceHolder, ProjectHolder, SkillHolder } from '../utils/userPortfolioBlocks'
 import { users } from '../db/users'
 
