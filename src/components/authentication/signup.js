@@ -4,6 +4,7 @@ import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 import UpdateDashboard from "../dashboard/updateDashBoard"
+import { loginHandler } from "../apis/userRequests"
 
 const Signup = ({ setSignup, setLogin }) => {
     
@@ -14,7 +15,8 @@ const Signup = ({ setSignup, setLogin }) => {
         userid: "",
         fullname: "",
         username: "",
-        password: ""
+        password: "",
+        isPublic: false
     })
 
     const changeHandler = (e) => {
@@ -46,7 +48,10 @@ const Signup = ({ setSignup, setLogin }) => {
                         ...user,
                         userid: await response.json()
                     })
+                    loginHandler(user)
                     setPortfolioVisibility(!portfolioVisibility)
+                    // setSignup(false)
+                    // setLogin(true)
             }
 
 
@@ -72,7 +77,7 @@ const Signup = ({ setSignup, setLogin }) => {
         <div>
             {
 
-                portfolioRequired ? <UpdateDashboard userid={user.userid} /> : <div className="login-container">
+                portfolioRequired ? <UpdateDashboard userid={user.userid} setUpdateDashboard={setPortfolioRequired} /> : <div className="login-container">
                     <img className="logoContainer" src={HomeLogo} alt="KRS"/>
                     <input placeholder="Enter your fullname" name="fullname" onChange={changeHandler} required/>
                     <input placeholder="Enter your username" name="username" onChange={changeHandler} required/>

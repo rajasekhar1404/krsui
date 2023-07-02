@@ -686,3 +686,19 @@ button {
 table {
   width: 100%;
 }
+
+/* home page */
+
+.feature-section {
+  margin-top: 1%;
+}
+
+.feature-section-header {
+  padding: 1%;
+  border: 3px solid black;
+  text-align: center;
+}
+
+.feature-body {
+
+}

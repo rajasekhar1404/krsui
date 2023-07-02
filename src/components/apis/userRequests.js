@@ -1,6 +1,7 @@
-import { LOGGEDINUSER, PROFILE_PHOTO, UPDATE_USER } from "./taskApis"
+import { LOGGEDINUSER, LOGIN, PROFILE_PHOTO, UPDATE_USER } from "./taskApis"
 import { OK } from '../utils/constants'
 import makeRequest from "./makeRequest"
+import { toast } from "react-toastify"
 
 export const getLoggedInUser = async () => {
     const response = await makeRequest(LOGGEDINUSER)
@@ -23,4 +24,32 @@ export const updateUserProfile = async (user) => {
 
 export const updateUserPhoto = async (photo) => {
     return await makeRequest(PROFILE_PHOTO, {profilePhoto: photo}, 'POST')
+}
+
+
+export async function loginHandler (user) {
+    try {
+        const response = await fetch(LOGIN, {
+            method: 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+
+        if (response.status !== OK) {
+            toast.error('Invalid credentials', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            return false
+        } else {
+            const data = await response.json()
+            localStorage.setItem('key', data.key)
+            return true;
+        }         
+    } catch (err) {
+        toast.error('Invalid credentials', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
 }

@@ -28,12 +28,37 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                 </span>
             </section>
 
-            <div className='portfolio-container'>
-                <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe}/>
+            <div className="features">
+                {/* <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe}/>
                 <ExperienceHolder experiences={user.experiences}/>
                 <ProjectHolder projects={user.projects}/>
                 <SkillHolder skills={user.skills}/>
-                <ContactHolder contact={user.contact} email={user.email}/>
+                <ContactHolder contact={user.contact} email={user.email}/> */}
+
+                <div className="feature-section">
+                    <div className="feature-section-header">
+                        <h2>LET THE WORLD KNOW YOU BY CREATING A EASY PORTFOLIO</h2>
+                    </div>
+                    <div className="feature-body">
+                        images rolling
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <h1>MAINTAIN YOUR NOTES LIKE A PRO ACROSS MULTIPLE DEVICES</h1>
+                    </div>
+                    <div>
+                        images rolling
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <h1>FORGET ABOUT FORGETTING THE TASKS</h1>
+                    </div>
+                    <div>
+                        images rolling
+                    </div>
+                </div>
             </div>
         </div>
     )
