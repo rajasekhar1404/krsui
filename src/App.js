@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Navigator from './components/navigator';
-import { LOGGEDINUSER } from './components/apis/taskApis';
-import { OK } from './components/utils/constants';
 import DashBoardService from './components/dashboard/dashboardService';
+import { getLoggedInUser } from './components/apis/userRequests';
 
 function App() {
 
@@ -28,18 +27,6 @@ function App() {
     }
   }
 
-  const getLoggedInUser = async () => {
-    const response = await fetch(LOGGEDINUSER, {
-        method: 'GET',
-        headers: {
-            'Authorization' : `Bearer ${localStorage.getItem('key')}`
-        }
-    })
-    if (response.status === OK) {
-      return await response.json()
-    }
-    return false
-}
 
   return (
       isActive ? <Navigator setActive={setActive} /> : <DashBoardService setActive={setActive} />

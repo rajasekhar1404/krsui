@@ -17,3 +17,4 @@ export const REGISTER = `${BASE_URL}/users/register`
 export const LOGIN = `${BASE_URL}/users/login`
 export const LOGGEDINUSER = `${BASE_URL}/users/user`
 export const UPDATE_USER = `${BASE_URL}/users/update`
+export const PROFILE_PHOTO = `${BASE_URL}/users/profilePhoto`

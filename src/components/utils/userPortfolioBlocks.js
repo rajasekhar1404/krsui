@@ -276,9 +276,9 @@ export const ContactHolder = ({ contact, email }) => {
                                 <p className='address-heading'>Email: </p>
                                 <div className='address-content'>{email}</div>
                                 <div className='social-container'>
-                                    <a href={contact.instagram}><img src={INSTAGRAM} alt='Instagram'/></a>
-                                    <a href={contact.twitter}><img src={TWITTER} alt='Twitter'/></a>
-                                    <a href={contact.facebook}><img src={FACEBOOK} alt='Facebook'/></a>
+                                    <a href={contact.instagram} target="_blank" rel="noreferrer"><img src={INSTAGRAM} alt='Instagram'/></a>
+                                    <a href={contact.twitter} target="_blank" rel="noreferrer"><img src={TWITTER} alt='Twitter'/></a>
+                                    <a href={contact.facebook} target="_blank" rel="noreferrer"><img src={FACEBOOK} alt='Facebook'/></a>
                                 </div>
                             </div>
                         </>

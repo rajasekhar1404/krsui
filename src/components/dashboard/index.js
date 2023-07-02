@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { LOGGEDINUSER } from "../apis/taskApis";
 import UpdateDashboard from "./updateDashBoard";
 import KRSLOGO from '../../static/title.svg'
 import { AboutMeHolder, ContactHolder, ExperienceHolder, ProjectHolder, SkillHolder } from "../utils/userPortfolioBlocks";
+import { getLoggedInUser, getProfilePhoto } from "../apis/userRequests";
 
 const DashBoard = () => {
 
     const [user, setUser] = useState({})
+    const [userPhoto, setUserPhoto] = useState("")
     const [updateDashBoard, setUpdateDashboard] = useState(false)
 
     useEffect(() => {
-        getLoggedInUser()
+        getUserProfile()
     }, [])
 
-    const getLoggedInUser = async () => {
-        const response = await fetch(LOGGEDINUSER, {
-            method: 'GET',
-            headers: {
-                'Authorization' : `Bearer ${localStorage.getItem('key')}`
-            }
-        })
-        const data = await response.json()
-        setUser(data)
+    const getUserProfile = async () => {
+        const data = await getLoggedInUser()
+        if (data) {
+            setUser(prev => ({
+                ...prev,
+                ...data
+            }))
+        const photo = await getProfilePhoto()
+        setUserPhoto(photo.profilePhoto)
+        }
     }
 
     return (
@@ -45,7 +47,7 @@ const DashBoard = () => {
                     </span>
                 </section>
                 <div className='portfolio-container'>
-                    <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe} profilePhoto={user.profilePhoto}/>
+                    <AboutMeHolder fullname={user.fullname} aboutMe={user.aboutMe} profilePhoto={userPhoto}/>
                     <ExperienceHolder experiences={user.experiences}/>
                     <ProjectHolder projects={user.projects}/>
                     <SkillHolder skills={user.skills}/>

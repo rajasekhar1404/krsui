@@ -500,7 +500,7 @@ button {
 .skills-wrapper {
   width: 100%;
   display: flex;
-  overflow: hidden;
+  overflow-x: scroll;
   justify-content: space-between;
 }
 
@@ -526,20 +526,20 @@ button {
   padding-left: 1%;
   padding-right: 1%;
   margin-left: 1%;
-  margin-right: 1%;
+  /* margin-right: 1%; */
   display: flex;
-  animation: roll 120s linear alternate;
+  /* animation: roll 120s linear alternate; */
   white-space: nowrap;
 }
 
-@keyframes roll {
+/* @keyframes roll {
   0% {
     transform: translateX(250%);
   }
   100% {
     transform: translateX(-100%);
   }
-}
+} */
 
 .contact-container {
   margin-top: 1%;
