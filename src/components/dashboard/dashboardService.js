@@ -15,7 +15,7 @@ const DashBoardService = ({ setActive }) => {
                     if (signup) {
                         return <Signup setLogin={setLogin} setSignup={setSignup} />
                     } else if(login) {
-                        return <Login  setActive={setActive} setSignup={setSignup} />
+                        return <Login  setActive={setActive} setLogin={setLogin} setSignup={setSignup} />
                     } else {
                         return <PublicDashboard setSignup={setSignup} setLogin={setLogin}/>
                     }

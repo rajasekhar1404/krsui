@@ -5,12 +5,10 @@ import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 import UpdateDashboard from "../dashboard/updateDashBoard"
 import { loginHandler } from "../apis/userRequests"
+import BACK_LOGO from '../../static/box-arrow-left.svg'
 
 const Signup = ({ setSignup, setLogin }) => {
     
-    const [portfolioVisibility, setPortfolioVisibility] = useState(false)
-    const [portfolioRequired, setPortfolioRequired] = useState(false)
-
     const [user, setUser] = useState({
         userid: "",
         fullname: "",
@@ -49,9 +47,6 @@ const Signup = ({ setSignup, setLogin }) => {
                         userid: await response.json()
                     })
                     loginHandler(user)
-                    setPortfolioVisibility(!portfolioVisibility)
-                    // setSignup(false)
-                    // setLogin(true)
             }
 
 
@@ -62,22 +57,10 @@ const Signup = ({ setSignup, setLogin }) => {
         }
     }
 
-    const skipHandler = () => {
-        setPortfolioVisibility(!portfolioVisibility)
-        setSignup(false)
-        setLogin(true)
-    }
-
-    const setUpPortfolio = () => {
-        setPortfolioVisibility(!portfolioVisibility)
-        setPortfolioRequired(!portfolioRequired)
-    }
-
     return (
         <div>
-            {
-
-                portfolioRequired ? <UpdateDashboard userid={user.userid} setUpdateDashboard={setPortfolioRequired} /> : <div className="login-container">
+            <img src={BACK_LOGO} alt="back" className="go-back" onClick={() => setSignup(false)}/>
+                <div className="login-container">
                     <img className="logoContainer" src={HomeLogo} alt="KRS"/>
                     <input placeholder="Enter your fullname" name="fullname" onChange={changeHandler} required/>
                     <input placeholder="Enter your username" name="username" onChange={changeHandler} required/>
@@ -89,16 +72,6 @@ const Signup = ({ setSignup, setLogin }) => {
                     }} style={{color: 'blue',cursor: "pointer"}}>Login here</label></p>
                     <ToastContainer />
                 </div>
-
-            }
-            {
-                portfolioVisibility && <div>
-                    <h5>Setup a portfolio ? </h5>
-                    <button onClick={() => skipHandler(false)}>Skip</button>
-                    <button onClick={() => setUpPortfolio(true)}>Yes</button>
-                </div>
-            }
-
         </div>
     )
 }

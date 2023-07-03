@@ -2,8 +2,9 @@ import { useState } from "react"
 import { ToastContainer } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 import { loginHandler } from "../apis/userRequests"
+import BACK_LOGO from '../../static/box-arrow-left.svg'
 
-const Login = ({ setSignup, setActive }) => {
+const Login = ({ setSignup, setLogin, setActive }) => {
 
     const [user, setUser] = useState({
         username: '',
@@ -18,6 +19,10 @@ const Login = ({ setSignup, setActive }) => {
 
     return (
         <section>
+            <img src={BACK_LOGO} alt="back" className="go-back" onClick={() =>{
+                    setLogin(false)
+                    setSignup(false)
+                }}/>
                 <div className="login-container">
                     <img className="logoContainer" src={HomeLogo} alt="KRS" />
                     <input placeholder="Enter you username" onChange={(e) => setUser({...user, username: e.target.value})} required/>
