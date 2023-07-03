@@ -19,7 +19,7 @@ const Task = ({ title, description, dueDate, status }) => {
                         }
                     })()
                 }
-                <label className="col-sm-4">{title}</label>
+                <h4>{title}</h4>
             </div>
             <ReactMarkdown>{description}</ReactMarkdown>
         </div>

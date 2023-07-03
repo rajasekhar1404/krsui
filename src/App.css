@@ -1,5 +1,5 @@
 body {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .App {
@@ -389,6 +389,8 @@ button {
 .dashboard-header{
   height: 20%;
   background-color: #eee;
+  position: sticky;
+  top: 0;
 }
 
 .dashboard-logo img{
@@ -691,14 +693,31 @@ table {
 
 .feature-section {
   margin-top: 1%;
+  border: 3px solid #2C3E50;
+  border-radius: 10px;
 }
 
 .feature-section-header {
   padding: 1%;
-  border: 3px solid black;
+  background-color: #2C3E50;
+  border-bottom: 3px solid #2C3E50;
   text-align: center;
+  color: #fff;
 }
 
 .feature-body {
+  /* border: 3px solid black; */
+  padding: 1%;
+}
 
+.feature-screenshot {
+  width: 48%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 1%;
+  margin: 1%;
+}
+
+.feature-screenshot:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  transition: opacity .2s, visibility .2s;
 }
