@@ -1,4 +1,4 @@
-import { LOGGEDINUSER, LOGIN, PROFILE_PHOTO, UPDATE_USER } from "./taskApis"
+import { LOGGEDINUSER, LOGIN, PROFILE_PHOTO, UPDATE_USER, USER_BY_EMAIL } from "./taskApis"
 import { OK } from '../utils/constants'
 import makeRequest from "./makeRequest"
 import { toast } from "react-toastify"

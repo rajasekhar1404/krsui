@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ToastContainer } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 import { loginHandler } from "../apis/userRequests"
-import BACK_LOGO from '../../static/box-arrow-left.svg'
+import BACK_LOGO from '../../static/go_back.png'
 
 const Login = ({ setSignup, setLogin, setActive }) => {
 

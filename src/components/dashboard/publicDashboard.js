@@ -1,5 +1,5 @@
+import { useState } from 'react'
 import KRSLOGO from '../../static/title.svg'
-import { users } from '../db/users'
 import PORTFOLIO_SC_1 from '../../static/portfolio_sc_1.png'
 import PORTFOLIO_SC_2 from '../../static/portfolio_sc_2.png'
 import TASKPAD_SC_1 from '../../static/taskpad_sc_1.png'
@@ -15,11 +15,13 @@ import CREATE_TASK_SC_1 from '../../static/create_task.png'
 import TASK_PAD_SC_1 from '../../static/taskpad_view.png'
 import TASK_PAD_SC_2 from '../../static/taskpad_edit.png'
 import { findUserByEmail } from '../apis/userRequests'
+import UserPortfolioPopUp from './userPortfolioPopUp'
+import { ToastContainer, toast } from 'react-toastify'
 
 const PublicDashboard = ({ setSignup, setLogin }) => {
 
-    const user = users[0]
 	const [email, setEmail] = useState("");
+    const [user, setUser] = useState(null)
 
     const signupHandler = () => {
         setLogin(false)
@@ -34,9 +36,19 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
 	const handleChange = (e) => {
 		setEmail(e.target.value);
 	}
-	const handleSearch = () => {
-		let response = findUserByEmail(email);
-		console.log(response)
+	const handleSearch = async () => {
+        const response = await findUserByEmail(email)
+        
+        if (response.status === 500) {
+            setUser(null)
+            toast.error(email + " not found", {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            return
+        } 
+        
+        const data = await response.json()
+        setUser(data);
 	}
 
     return (
@@ -56,6 +68,7 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                     <button onClick={signinHandler}>Sign in</button>
                 </span>
             </section>
+            <UserPortfolioPopUp user={user} />
 
             <div className="features">
                 <div className="feature-section">
@@ -101,6 +114,7 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

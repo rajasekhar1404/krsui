@@ -1,5 +1,6 @@
 import { ExperienceBlock, ProjectBlock, SkillsBlock } from "../utils/userPortfolioBlocks"
 import PLUSICON from '../../static/plus.png'
+import MINUSICON from '../../static/minus.png'
 
 export const AboutFormBlock = ({ fullname, aboutMe, changeHandler, setUserPhoto }) => {
     return (
@@ -44,8 +45,8 @@ export const ExperienceFormBlock = ({ user, removeExperience, addAnotherExperien
     return (
         <>
             <div className='section-container'>
+                <img className='plus-icon' onClick={removeExperience} src={MINUSICON} alt='add new'/>
                 <label>Experiences</label>
-                <img className='plus-icon' onClick={removeExperience} src={PLUSICON} alt='add new'/>
                 <img className='plus-icon' onClick={addAnotherExperience} src={PLUSICON} alt='add new'/>
             </div>
             <div>
@@ -67,8 +68,8 @@ export const ProjectFormBlock = ({ user, removeProject, addProjectSection, setUs
     return (
         <>
             <div className='section-container'>
+                <img className='plus-icon' onClick={removeProject} src={MINUSICON} alt='add new'/>
                 <label>Projects</label>
-                <img className='plus-icon' onClick={removeProject} src={PLUSICON} alt='add new'/>
                 <img className='plus-icon' onClick={addProjectSection} src={PLUSICON} alt='add new'/>
             </div>
             <div>
@@ -90,8 +91,8 @@ export const SkillsFormBlock = ({ user, setUser, removeSkill, addSkillsSection }
     return (
         <>
             <div className='section-container'>
+                <img className='plus-icon' onClick={removeSkill} src={MINUSICON} alt='add new'/>
                 <label>Skills</label>
-                <img className='plus-icon' onClick={removeSkill} src={PLUSICON} alt='add new'/>
                 <img className='plus-icon' onClick={addSkillsSection} src={PLUSICON} alt='add new'/>
             </div>
             <div>

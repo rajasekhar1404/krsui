@@ -3,9 +3,8 @@ import { REGISTER } from "../apis/taskApis"
 import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
-import UpdateDashboard from "../dashboard/updateDashBoard"
 import { loginHandler } from "../apis/userRequests"
-import BACK_LOGO from '../../static/box-arrow-left.svg'
+import BACK_LOGO from '../../static/go_back.png'
 
 const Signup = ({ setSignup, setLogin }) => {
     
