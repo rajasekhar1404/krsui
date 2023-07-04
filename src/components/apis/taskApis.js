@@ -1,6 +1,4 @@
-const BASE_URL = 'https://rajasekhar.up.railway.app/api'
-// const BASE_URL = 'http://localhost:8080/api'
-// const BASE_URL = 'https://krs-backend-lwq1.onrender.com'
+const BASE_URL = 'http://100.27.19.248:8081/api'
 
 // tasks
 export const GET_ALL_TASKS = `${BASE_URL}/tasks/`
