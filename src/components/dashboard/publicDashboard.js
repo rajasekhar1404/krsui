@@ -14,6 +14,7 @@ import TASKS_MOBILE_SC_1 from '../../static/tasks.png'
 import CREATE_TASK_SC_1 from '../../static/create_task.png'
 import TASK_PAD_SC_1 from '../../static/taskpad_view.png'
 import TASK_PAD_SC_2 from '../../static/taskpad_edit.png'
+import { findUserByEmail } from '../apis/userRequests'
 
 const PublicDashboard = ({ setSignup, setLogin }) => {
 
@@ -34,7 +35,8 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
 		setEmail(e.target.value);
 	}
 	const handleSearch = () => {
-
+		let response = findUserByEmail(email);
+		console.log(response)
 	}
 
     return (

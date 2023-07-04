@@ -11,6 +11,11 @@ export const getLoggedInUser = async () => {
     return false
 }
 
+export const findUserByEmail = async (email) => {
+	return await makeRequest(USER_BY_EMAIL + "/" + email)
+
+}
+
 export const getProfilePhoto = async () => {
     const response = await makeRequest(PROFILE_PHOTO)
     if (response.status === OK) {
