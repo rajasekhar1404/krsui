@@ -18,6 +18,7 @@ import TASK_PAD_SC_2 from '../../static/taskpad_edit.png'
 const PublicDashboard = ({ setSignup, setLogin }) => {
 
     const user = users[0]
+	const [email, setEmail] = useState("");
 
     const signupHandler = () => {
         setLogin(false)
@@ -29,6 +30,13 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
         setLogin(true)
     }
 
+	const handleChange = (e) => {
+		setEmail(e.target.value);
+	}
+	const handleSearch = () => {
+
+	}
+
     return (
         <div className='portfolio-dashboard'>
             <section className="dashboard-header">
@@ -36,8 +44,10 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                     <img src={KRSLOGO} alt='krslogo'/>
                 </span>
                 <span className='search-wrapper'>
-                    <input placeholder="Enter username"/>
-                    <button>Search</button>
+                    <input placeholder="Enter username" onChange={handleChange}/>
+                    <button
+			onClick={handleSearch}
+	    		>Search</button>
                 </span>
                 <span className='login-wrapper'>
                     <button onClick={signupHandler}>Sign up</button>
