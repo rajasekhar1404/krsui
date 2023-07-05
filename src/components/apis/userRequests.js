@@ -1,4 +1,4 @@
-import { LOGGEDINUSER, LOGIN, PROFILE_PHOTO, UPDATE_USER, USER_BY_EMAIL } from "./taskApis"
+import { FORGOT_PASSWORD_SEND_EMAIL, LOGGEDINUSER, LOGIN, PROFILE_PHOTO, UPDATE_USER, USER_BY_EMAIL } from "./taskApis"
 import { OK } from '../utils/constants'
 import makeRequest from "./makeRequest"
 import { toast } from "react-toastify"
@@ -54,6 +54,19 @@ export async function loginHandler (user) {
         }         
     } catch (err) {
         toast.error('Invalid credentials', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+}
+
+export const sendForgotPasswordCode = async (email) => {
+    const response = await makeRequest(FORGOT_PASSWORD_SEND_EMAIL + "/" + email)
+    if (response.status === 500) {
+        toast.error('Email id not registered, Please register', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    } else {
+        toast.success('Verification code sent to your registered mail.', {
             position: toast.POSITION.BOTTOM_RIGHT
         })
     }

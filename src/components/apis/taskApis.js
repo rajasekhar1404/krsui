@@ -18,3 +18,4 @@ export const LOGGEDINUSER = `${BASE_URL}/users/user`
 export const UPDATE_USER = `${BASE_URL}/users/update`
 export const PROFILE_PHOTO = `${BASE_URL}/users/profilePhoto`
 export const USER_BY_EMAIL = `${BASE_URL}/users/email`
+export const FORGOT_PASSWORD_SEND_EMAIL = `${BASE_URL}/users/forgotPassword`
