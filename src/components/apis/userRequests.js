@@ -60,6 +60,12 @@ export async function loginHandler (user) {
 }
 
 export const sendForgotPasswordCode = async (email) => {
+    if (!email) {
+        toast.warn('Email is required', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+        return
+    }
     const response = await makeRequest(FORGOT_PASSWORD_SEND_EMAIL + "/" + email)
     if (response.status === 500) {
         toast.error('Email id not registered, Please register', {
@@ -70,4 +76,5 @@ export const sendForgotPasswordCode = async (email) => {
             position: toast.POSITION.BOTTOM_RIGHT
         })
     }
+    return response;
 }

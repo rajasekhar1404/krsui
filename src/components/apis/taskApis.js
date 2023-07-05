@@ -19,3 +19,4 @@ export const UPDATE_USER = `${BASE_URL}/users/update`
 export const PROFILE_PHOTO = `${BASE_URL}/users/profilePhoto`
 export const USER_BY_EMAIL = `${BASE_URL}/users/email`
 export const FORGOT_PASSWORD_SEND_EMAIL = `${BASE_URL}/users/forgotPassword`
+export const FORGOT_PASSWORD_VERIFY_OTP = `${BASE_URL}/users/verifyotp`
