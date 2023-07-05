@@ -1,5 +1,5 @@
 const BASE_URL = 'http://100.27.19.248:8081/api'
-//const BASE_URL = 'http://127.0.0.1:8081/api'
+// const BASE_URL = 'http://localhost:8081/api'
 
 // tasks
 export const GET_ALL_TASKS = `${BASE_URL}/tasks/`

@@ -3,15 +3,13 @@ import { REGISTER } from "../apis/taskApis"
 import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
-import { loginHandler } from "../apis/userRequests"
 import BACK_LOGO from '../../static/go_back.png'
 
 const Signup = ({ setSignup, setLogin }) => {
     
     const [user, setUser] = useState({
-        userid: "",
         fullname: "",
-        username: "",
+        email: "",
         password: "",
         isPublic: false
     })
@@ -41,11 +39,11 @@ const Signup = ({ setSignup, setLogin }) => {
                     position: toast.POSITION.BOTTOM_RIGHT
                 })
             } else {
-                    setUser({
-                        ...user,
-                        userid: await response.json()
+                    toast.success('Registered successfully, please login to continue', {
+                        position: toast.POSITION.BOTTOM_RIGHT
                     })
-                    loginHandler(user)
+                    setSignup(false)
+                    //setLogin(false)
             }
 
 
@@ -62,7 +60,7 @@ const Signup = ({ setSignup, setLogin }) => {
                 <div className="login-container">
                     <img className="logoContainer" src={HomeLogo} alt="KRS"/>
                     <input placeholder="Enter your fullname" name="fullname" onChange={changeHandler} required/>
-                    <input placeholder="Enter your username" name="username" onChange={changeHandler} required/>
+                    <input placeholder="Enter your email" type="email" name="email" onChange={changeHandler} required/>
                     <input placeholder="Enter your password" type="password" name="password" onChange={changeHandler} required/>
                     <button onClick={registerHandler}>Register</button>
                     <p>Already registered? <label onClick={() => {

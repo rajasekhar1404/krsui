@@ -58,7 +58,7 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                     <img src={KRSLOGO} alt='krslogo'/>
                 </span>
                 <span className='search-wrapper'>
-                    <input placeholder="Enter username" onChange={handleChange}/>
+                    <input placeholder="Enter email" onChange={handleChange}/>
                     <button
 			onClick={handleSearch}
 	    		>Search</button>

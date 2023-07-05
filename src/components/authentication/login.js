@@ -7,7 +7,7 @@ import BACK_LOGO from '../../static/go_back.png'
 const Login = ({ setSignup, setLogin, setActive }) => {
 
     const [user, setUser] = useState({
-        username: '',
+        email: '',
         password: ''
     })
 
@@ -25,7 +25,7 @@ const Login = ({ setSignup, setLogin, setActive }) => {
                 }}/>
                 <div className="login-container">
                     <img className="logoContainer" src={HomeLogo} alt="KRS" />
-                    <input placeholder="Enter you username" onChange={(e) => setUser({...user, username: e.target.value})} required/>
+                    <input placeholder="Enter you email" onChange={(e) => setUser({...user, email: e.target.value})} required/>
                     <input placeholder="Enter you password" type="password" onChange={(e) => setUser({...user, password: e.target.value})} required/>
                     <button onClick={handleLogin}>Login</button>
                     <p>Still not registered yet? <label onClick={() => setSignup(true)} style={{color: 'blue',cursor: "pointer"}}>Register now</label></p>

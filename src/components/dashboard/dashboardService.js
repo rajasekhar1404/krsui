@@ -2,6 +2,7 @@ import { useState } from "react"
 import Signup from "../authentication/signup"
 import Login from "../authentication/login"
 import PublicDashboard from "./publicDashboard"
+import { ToastContainer } from "react-toastify"
 
 const DashBoardService = ({ setActive }) => {
 
@@ -21,6 +22,7 @@ const DashBoardService = ({ setActive }) => {
                     }
                 })()
             }
+            <ToastContainer />
         </div>
     )
 }
