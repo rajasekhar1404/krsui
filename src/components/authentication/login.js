@@ -13,7 +13,8 @@ const Login = ({ setSignup, setLogin, setActive }) => {
     })
     const [forgotPassword, setForgotPassword] = useState(false)
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault()
         if (await loginHandler(user)) {
             setActive(true)
         }

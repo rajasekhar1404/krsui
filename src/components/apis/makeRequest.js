@@ -20,6 +20,7 @@ const makeRequest = async (url, body, type, headers) => {
             'Authorization' : `Bearer ${localStorage.getItem('key')}`
         }
     }
+
     return await fetch(url, fetchOptions)
 }
 
