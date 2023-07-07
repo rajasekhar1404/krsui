@@ -12,10 +12,10 @@ function App() {
     verifyUser()
   }, [isActive])
   
-  const verifyUser = () => {
+  const verifyUser = async () => {
     const token = localStorage.getItem('key')
     if (token) {
-      const isLoggedIn = getLoggedInUser()
+      const isLoggedIn = await getLoggedInUser()
       if (isLoggedIn) {
         setActive(true)
       } else {
@@ -26,7 +26,6 @@ function App() {
       setActive(false)
     }
   }
-
 
   return (
       isActive ? <Navigator setActive={setActive} /> : <DashBoardService setActive={setActive} />

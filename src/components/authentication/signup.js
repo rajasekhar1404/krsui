@@ -1,9 +1,8 @@
 import { useState } from "react"
-import { REGISTER } from "../apis/taskApis"
-import { OK } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 import BACK_LOGO from '../../static/go_back.png'
+import { registerUser } from "../apis/userRequests"
 
 const Signup = ({ setSignup, setLogin }) => {
     
@@ -18,37 +17,16 @@ const Signup = ({ setSignup, setLogin }) => {
         setUser({
             ...user,
             [e.target.name]:e.target.value
-        })        
+        })
     }
 
     const registerHandler = async () => {
 
-        try {
-            const response = await fetch(REGISTER, {
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify(user)
-            })
-            if (response.status !== OK) {
-                let message;
-                const error = await response.json()
-                error.message.includes('duplicate') ? message = 'user already registered, please login' : message = error.message
-                toast.error(message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                })
-            } else {
-                    toast.success('Registered successfully, please login to continue', {
-                        position: toast.POSITION.BOTTOM_RIGHT
-                    })
-                    setSignup(false)
-                    //setLogin(false)
-            }
-
-
-        } catch(err) {
-            toast.error(err.message, {
+        const response = await registerUser(user)            
+        if (response) {
+            setSignup(false)
+        } else {
+            toast.error('Unable to register the user', {
                 position: toast.POSITION.BOTTOM_RIGHT
             })
         }
