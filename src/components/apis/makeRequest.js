@@ -23,7 +23,11 @@ const makeRequest = async (url, body, type, headers) => {
         }
     }
     try {
-        return await fetch(url, fetchOptions)
+        const resposne = await fetch(url, fetchOptions)
+        if (!resposne) {
+            throw new Error('Something went wrong')
+        }
+        return resposne
     } catch(e) {
         toast.error('Server is down, please try later.', {
             position: toast.POSITION.BOTTOM_RIGHT
