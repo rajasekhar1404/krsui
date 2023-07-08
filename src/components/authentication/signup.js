@@ -1,10 +1,8 @@
 import { useState } from "react"
-import { REGISTER } from "../apis/taskApis"
-import { CREATED } from "../utils/constants"
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
 import { registerUser } from "../apis/userRequests"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Signup = () => {
     
@@ -29,10 +27,6 @@ const Signup = () => {
         const response = await registerUser(user)            
         if (response) {
             navigator("/login")
-        } else {
-            toast.error('Unable to register the user', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
         }
     }
 

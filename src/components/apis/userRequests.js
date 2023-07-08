@@ -1,11 +1,11 @@
 import { FORGOT_PASSWORD_SEND_EMAIL, FORGOT_PASSWORD_VERIFY_OTP, LOGGEDINUSER, LOGIN, PROFILE_PHOTO, REGISTER, UPDATE_PASSWORD_FORGOT, UPDATE_USER, USER_BY_EMAIL } from "./taskApis"
-import { OK } from '../utils/constants'
+import { CREATED, OK } from '../utils/constants'
 import makeRequest from "./makeRequest"
 import { toast } from "react-toastify"
 
 export const registerUser = async (user) => {
     const response = await makeRequest(REGISTER, user, 'POST')
-    if (response.status !== OK) {
+    if (response.status !== CREATED) {
         let message;
         const error = await response.json()
         error.message.includes('duplicate') ? message = 'user already registered, please login' : message = error.message
@@ -13,10 +13,10 @@ export const registerUser = async (user) => {
             position: toast.POSITION.BOTTOM_RIGHT
         })
     } else {
-            toast.success('Registered successfully, please login to continue', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
-            return response
+        toast.success('Registered successfully, please login to continue', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+        return await response.json()
     }
 }
 

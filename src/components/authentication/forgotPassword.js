@@ -31,13 +31,8 @@ const ForgotPassword = ({ setForgotPassword }) => {
         }
     }
 
-    const backtoLogin = () => {
-        setForgotPassword(false)
-    }
-
     const handleOtpVerify = async (e) => {
         e.preventDefault()
-        
         const response = await verifyFortgotPasswordOTP(user)
         if (response.status === 200) {
             setUser({
