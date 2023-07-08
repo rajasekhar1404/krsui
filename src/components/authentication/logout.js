@@ -9,7 +9,7 @@ const Logout = ({setActive }) => {
 
     return (
         <div title='logout'>
-            <img className='logoutImage' src={LogoutIcon} alt='Logout' onClick={logoutHandler}/>
+            <img src={LogoutIcon} alt='Logout' onClick={logoutHandler}/>
         </div>
     )
 }

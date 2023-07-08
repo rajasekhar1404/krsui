@@ -3,8 +3,9 @@ import "react-toastify/dist/ReactToastify.css";
 import UpdateDashboard from "./updateDashBoard";
 import KRSLOGO from '../../static/title.svg'
 import { AboutMeHolder, ContactHolder, ExperienceHolder, ProjectHolder, SkillHolder } from "../utils/userPortfolioBlocks";
-import { findUserByEmail, getLoggedInUser, getProfilePhoto } from "../apis/userRequests";
-import { ToastContainer, toast } from "react-toastify";
+import { getLoggedInUser, getProfilePhoto } from "../apis/userRequests";
+import { ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const DashBoard = () => {
 
@@ -32,20 +33,6 @@ const DashBoard = () => {
     const handleChange = (e) => {
 		setEmail(e.target.value);
 	}
-	const handleSearch = async () => {
-        const response = await findUserByEmail(email)
-        
-        if (response.status === 500) {
-            // setUser(null)
-            toast.error(email + " not found", {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
-            return
-        } 
-        
-        const data = await response.json()
-        setUser(data);
-	}
 
     return (
         <>
@@ -58,7 +45,7 @@ const DashBoard = () => {
                     </span>
                     <span className='search-wrapper'>
                         <input placeholder="Enter email" onChange={handleChange}/>
-                        <button onClick={handleSearch}>Search</button>
+                        <Link to={"/" + email}><button>Search</button></Link>
                     </span>
                     <span className='login-wrapper'>
                         <button onClick={() => {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Navigator from './components/navigator';
-import DashBoardService from './components/dashboard/dashboardService';
+import Navigator from './components/navigator/navigator';
 import { getLoggedInUser } from './components/apis/userRequests';
+import PublicNavigator from './components/navigator/publicNavigator';
 
 function App() {
 
@@ -29,7 +29,7 @@ function App() {
 
 
   return (
-      isActive ? <Navigator setActive={setActive} /> : <DashBoardService setActive={setActive} />
+      isActive ? <Navigator setActive={setActive} /> : <PublicNavigator setActive={setActive} /> // <DashBoardService setActive={setActive} />
   );
 }
 

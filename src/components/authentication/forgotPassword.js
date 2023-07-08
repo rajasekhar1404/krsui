@@ -31,10 +31,6 @@ const ForgotPassword = ({ setForgotPassword }) => {
         }
     }
 
-    const backtoLogin = () => {
-        setForgotPassword(false)
-    }
-
     const handleOtpVerify = (e) => {
         e.preventDefault()
         setUser({
@@ -63,17 +59,14 @@ const ForgotPassword = ({ setForgotPassword }) => {
                     (function() {
                         if (user.isOtpSent) return <>
                                 <input placeholder="Enter the OTP" type="number" onChange={handleChange}/>
-                                <button onClick={backtoLogin}>Cancel</button>
                                 <button onClick={handleOtpVerify}>Verify</button>
                             </>
                         else if (user.isValidOtp) return <>
                                 <input placeholder="Enter new password" onChange={handleChange} name="password" type="password"/>
-                                <button onClick={backtoLogin}>Cancel</button>
                                 <button onClick={updatePassword}>Update</button>
                             </>
                         else return <>
                                 <input placeholder="Enter registered email" type="email" onChange={handleChange} name="email" required/>
-                                <button onClick={backtoLogin}>Cancel</button>
                                 <button onClick={sendOtpMail}>Send OTP</button>                        
                             </>
                     })()

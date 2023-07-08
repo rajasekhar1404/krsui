@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import KRSLOGO from '../../static/title.svg'
 import PORTFOLIO_SC_1 from '../../static/portfolio_sc_1.png'
 import PORTFOLIO_SC_2 from '../../static/portfolio_sc_2.png'
 import TASKPAD_SC_1 from '../../static/taskpad_sc_1.png'
@@ -14,70 +12,20 @@ import TASKS_MOBILE_SC_1 from '../../static/tasks.png'
 import CREATE_TASK_SC_1 from '../../static/create_task.png'
 import TASK_PAD_SC_1 from '../../static/taskpad_view.png'
 import TASK_PAD_SC_2 from '../../static/taskpad_edit.png'
-import { findUserByEmail } from '../apis/userRequests'
-import UserPortfolioPopUp from './userPortfolioPopUp'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 
-const PublicDashboard = ({ setSignup, setLogin }) => {
-
-	const [email, setEmail] = useState("");
-    const [user, setUser] = useState(null)
-
-    const signupHandler = () => {
-        setLogin(false)
-        setSignup(true)
-    }
-
-    const signinHandler = () => {
-        setSignup(false)
-        setLogin(true)
-    }
-
-	const handleChange = (e) => {
-		setEmail(e.target.value);
-	}
-	const handleSearch = async () => {
-        const response = await findUserByEmail(email)
-        
-        if (response.status === 500) {
-            setUser(null)
-            toast.error(email + " not found", {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
-            return
-        } 
-        
-        const data = await response.json()
-        setUser(data);
-	}
+const PublicDashboard = () => {
 
     return (
         <div className='portfolio-dashboard'>
-            <section className="dashboard-header">
-                <span className='dashboard-logo'>
-                    <img src={KRSLOGO} alt='krslogo'/>
-                </span>
-                <span className='search-wrapper'>
-                    <input placeholder="Enter email" onChange={handleChange}/>
-                    <button
-			onClick={handleSearch}
-	    		>Search</button>
-                </span>
-                <span className='login-wrapper'>
-                    <button onClick={signupHandler}>Sign up</button>
-                    <button onClick={signinHandler}>Sign in</button>
-                </span>
-            </section>
-            <UserPortfolioPopUp user={user} />
-
             <div className="features">
                 <div className="feature-section">
                     <div className="feature-section-header">
                         <h2>LET THE WORLD KNOW YOU BY CREATING A EASY PORTFOLIO</h2>
                     </div>
                     <div className="feature-body">
-                        <img src={PORTFOLIO_SC_1} alt="portfolio_1" className="feature-screenshot" onClick={signupHandler}/>
-                        <img src={PORTFOLIO_SC_2} alt="portfolio_2" className="feature-screenshot" onClick={signupHandler}/>
+                        <img src={PORTFOLIO_SC_1} alt="portfolio_1" className="feature-screenshot"/>
+                        <img src={PORTFOLIO_SC_2} alt="portfolio_2" className="feature-screenshot"/>
                     </div>
                 </div>
                 <div className="feature-section">
@@ -85,8 +33,8 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                         <h2>MAINTAIN YOUR NOTES LIKE A PRO ACROSS MULTIPLE DEVICES</h2>
                     </div>
                     <div className="feature-body">
-                        <img src={TASKPAD_SC_1} alt="portfolio_1" className="feature-screenshot" onClick={signupHandler}/>
-                        <img src={TASKPAD_SC_2} alt="portfolio_2" className="feature-screenshot" onClick={signupHandler}/>
+                        <img src={TASKPAD_SC_1} alt="portfolio_1" className="feature-screenshot"/>
+                        <img src={TASKPAD_SC_2} alt="portfolio_2" className="feature-screenshot"/>
                     </div>
                 </div>
                 <div className="feature-section">
@@ -94,8 +42,8 @@ const PublicDashboard = ({ setSignup, setLogin }) => {
                         <h2>FORGET ABOUT FORGETTING THE TASKS</h2>
                     </div>
                     <div className="feature-body">
-                        <img src={TASKS_SC_1} alt="portfolio_1" className="feature-screenshot" onClick={signupHandler}/>
-                        <img src={TASKS_SC_2} alt="portfolio_2" className="feature-screenshot" onClick={signupHandler}/>
+                        <img src={TASKS_SC_1} alt="portfolio_1" className="feature-screenshot"/>
+                        <img src={TASKS_SC_2} alt="portfolio_2" className="feature-screenshot"/>
                     </div>
                 </div>
                 <div className="feature-section">

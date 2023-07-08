@@ -70,11 +70,7 @@ body {
   bottom: 0;
   left: 0;
   margin: 1%;
-}
-
-.logoutImage {
-  width: 200%;
-  cursor: pointer;
+  width: 100%;
 }
 
 .logoContainer {
@@ -241,15 +237,13 @@ button {
 .nav-bar {
   width: 4%;
   height: fit-content;
-  min-height: 50vh;
+  min-height: 100vh;
   position: fixed;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 0px 15px 15px 0px;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* flex-direction: column; */
+  /* border: 1px solid black; */
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  top: 20%;
 }
 
 .nav-bar img {
@@ -257,6 +251,7 @@ button {
   padding: 5px;
   opacity: 75%;
   cursor: pointer;
+  margin: 1%;
 }
 
 .menu-container {
@@ -732,4 +727,27 @@ table {
   width: 2%;
   margin: 1%;
   cursor: pointer;
+}
+
+/* error page */
+
+.errorpage {
+  text-align: center;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+.not-found {
+  padding: 0%;
+  font-weight: 500;
+}
+
+.error-header {
+  font-size: calc(100px + 2vmin);
+  font-weight: 600;
+  padding: 0%;
 }

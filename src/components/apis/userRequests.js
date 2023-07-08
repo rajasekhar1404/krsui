@@ -41,7 +41,7 @@ export async function loginHandler (user) {
             },
             body: JSON.stringify(user)
         })
-
+        console.log(response)
         if (response.status !== OK) {
             toast.error('Invalid credentials', {
                 position: toast.POSITION.BOTTOM_RIGHT

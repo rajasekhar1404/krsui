@@ -1,31 +1,25 @@
 import { useState } from "react"
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
-import { loginHandler, sendForgotPasswordCode } from "../apis/userRequests"
-import BACK_LOGO from '../../static/go_back.png'
+import { loginHandler } from "../apis/userRequests"
 import ForgotPassword from "./forgotPassword"
+import { Link, useNavigate } from "react-router-dom"
 
-const Login = ({ setSignup, setLogin, setActive }) => {
+const Login = ({ setActive }) => {
 
     const [user, setUser] = useState({
         email: '',
         password: ''
     })
+
+    const navigate = useNavigate()
     const [forgotPassword, setForgotPassword] = useState(false)
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault()
         if (await loginHandler(user)) {
             setActive(true)
-        }
-    }
-
-    const sendEmail = () => {
-        if (user.email) {
-            sendForgotPasswordCode(user.email)
-        } else {
-            toast.error('Email id is required', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
+            navigate("/")
         }
     }
 
@@ -34,10 +28,6 @@ const Login = ({ setSignup, setLogin, setActive }) => {
             
             {
                 forgotPassword ? <ForgotPassword setForgotPassword={setForgotPassword}/> : <>
-                    <img src={BACK_LOGO} alt="back" className="go-back" onClick={() =>{
-                        setLogin(false)
-                        setSignup(false)
-                    }}/>
                     <div className="login-container">
                         <form>
                         <img className="logoContainer" src={HomeLogo} alt="KRS" />
@@ -45,7 +35,7 @@ const Login = ({ setSignup, setLogin, setActive }) => {
                         <input placeholder="Enter you password" type="password" onChange={(e) => setUser({...user, password: e.target.value})} required/>
                         <button onClick={handleLogin}>Login</button>
                         <p style={{color: 'blue',cursor: "pointer"}} onClick={() => setForgotPassword(!forgotPassword)}>Forgot password</p>
-                        <p>Still not registered yet? <label onClick={() => setSignup(true)} style={{color: 'blue',cursor: "pointer"}}>Register now</label></p>
+                        <p>Still not registered yet? <Link to={"/signup"} style={{color: 'blue',cursor: "pointer"}}>Register now</Link></p>
                         </form>
                     </div>
                 </>

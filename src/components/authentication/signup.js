@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { REGISTER } from "../apis/taskApis"
-import { OK } from "../utils/constants"
+import { CREATED } from "../utils/constants"
 import { ToastContainer, toast } from "react-toastify"
 import HomeLogo from '../../static/title.svg'
-import BACK_LOGO from '../../static/go_back.png'
+import { Link, useNavigate } from "react-router-dom"
 
-const Signup = ({ setSignup, setLogin }) => {
+const Signup = () => {
     
     const [user, setUser] = useState({
         fullname: "",
@@ -13,6 +13,8 @@ const Signup = ({ setSignup, setLogin }) => {
         password: "",
         isPublic: false
     })
+
+    const navigate = useNavigate()
 
     const changeHandler = (e) => {
         setUser({
@@ -31,7 +33,7 @@ const Signup = ({ setSignup, setLogin }) => {
                 },
                 body: JSON.stringify(user)
             })
-            if (response.status !== OK) {
+            if (response.status !== CREATED) {
                 let message;
                 const error = await response.json()
                 error.message.includes('duplicate') ? message = 'user already registered, please login' : message = error.message
@@ -42,8 +44,7 @@ const Signup = ({ setSignup, setLogin }) => {
                     toast.success('Registered successfully, please login to continue', {
                         position: toast.POSITION.BOTTOM_RIGHT
                     })
-                    setSignup(false)
-                    //setLogin(false)
+                    navigate("/login")
             }
 
 
@@ -56,19 +57,15 @@ const Signup = ({ setSignup, setLogin }) => {
 
     return (
         <div>
-            <img src={BACK_LOGO} alt="back" className="go-back" onClick={() => setSignup(false)}/>
-                <div className="login-container">
-                    <img className="logoContainer" src={HomeLogo} alt="KRS"/>
-                    <input placeholder="Enter your fullname" name="fullname" onChange={changeHandler} required/>
-                    <input placeholder="Enter your email" type="email" name="email" onChange={changeHandler} required/>
-                    <input placeholder="Enter your password" type="password" name="password" onChange={changeHandler} required/>
-                    <button onClick={registerHandler}>Register</button>
-                    <p>Already registered? <label onClick={() => {
-                        setSignup(false)
-                        setLogin(true)
-                    }} style={{color: 'blue',cursor: "pointer"}}>Login here</label></p>
-                    <ToastContainer />
-                </div>
+            <div className="login-container">
+                <img className="logoContainer" src={HomeLogo} alt="KRS"/>
+                <input placeholder="Enter your fullname" name="fullname" onChange={changeHandler} required/>
+                <input placeholder="Enter your email" type="email" name="email" onChange={changeHandler} required/>
+                <input placeholder="Enter your password" type="password" name="password" onChange={changeHandler} required/>
+                <button onClick={registerHandler}>Register</button>
+                <p>Already registered? <Link to={"/login"} style={{color: 'blue',cursor: "pointer"}}>Login here</Link></p>
+                <ToastContainer />
+            </div>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-const BASE_URL = 'http://100.27.19.248:8081/api'
+const BASE_URL = 'http://3.95.166.145:8081/api'
 // const BASE_URL = 'http://localhost:8081/api'
 
 // tasks
