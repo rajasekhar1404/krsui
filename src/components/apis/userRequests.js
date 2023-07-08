@@ -1,7 +1,24 @@
-import { FORGOT_PASSWORD_SEND_EMAIL, LOGGEDINUSER, LOGIN, PROFILE_PHOTO, UPDATE_USER, USER_BY_EMAIL } from "./taskApis"
+import { FORGOT_PASSWORD_SEND_EMAIL, FORGOT_PASSWORD_VERIFY_OTP, LOGGEDINUSER, LOGIN, PROFILE_PHOTO, REGISTER, UPDATE_PASSWORD_FORGOT, UPDATE_USER, USER_BY_EMAIL } from "./taskApis"
 import { OK } from '../utils/constants'
 import makeRequest from "./makeRequest"
 import { toast } from "react-toastify"
+
+export const registerUser = async (user) => {
+    const response = await makeRequest(REGISTER, user, 'POST')
+    if (response.status !== OK) {
+        let message;
+        const error = await response.json()
+        error.message.includes('duplicate') ? message = 'user already registered, please login' : message = error.message
+        toast.error(message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    } else {
+            toast.success('Registered successfully, please login to continue', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            return response
+    }
+}
 
 export const getLoggedInUser = async () => {
     const response = await makeRequest(LOGGEDINUSER)
@@ -33,29 +50,16 @@ export const updateUserPhoto = async (photo) => {
 
 
 export async function loginHandler (user) {
-    try {
-        const response = await fetch(LOGIN, {
-            method: 'POST',
-            headers : {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-        console.log(response)
-        if (response.status !== OK) {
-            toast.error('Invalid credentials', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
-            return false
-        } else {
-            const data = await response.json()
-            localStorage.setItem('key', data.key)
-            return true;
-        }         
-    } catch (err) {
+    const response = await makeRequest(LOGIN, user, 'POST')
+    if (response.status !== OK) {
         toast.error('Invalid credentials', {
             position: toast.POSITION.BOTTOM_RIGHT
         })
+        return false
+    } else {
+        const data = await response.json()
+        localStorage.setItem('key', data.key)
+        return true;
     }
 }
 
@@ -68,7 +72,7 @@ export const sendForgotPasswordCode = async (email) => {
     }
     const response = await makeRequest(FORGOT_PASSWORD_SEND_EMAIL + "/" + email)
     if (response.status === 500) {
-        toast.error('Email id not registered, Please register', {
+        toast.error(email + ' not registered, Please register', {
             position: toast.POSITION.BOTTOM_RIGHT
         })
     } else {
@@ -77,4 +81,27 @@ export const sendForgotPasswordCode = async (email) => {
         })
     }
     return response;
+}
+
+export const verifyFortgotPasswordOTP = async (user) => {
+    const response = await makeRequest(FORGOT_PASSWORD_VERIFY_OTP, user, 'POST')
+    if (response.status === 500) {
+        const data = await response.json()
+        toast.error(data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+    return response
+}
+
+export const updateForgotPassword = async (user) => {
+    const response = await makeRequest(UPDATE_PASSWORD_FORGOT, user, 'POST')
+    if (response.status === 500) {
+        const data = await response.json()
+        toast.error(data.message, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+        return
+    }
+    return response
 }

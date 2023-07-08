@@ -1,3 +1,5 @@
+import { toast } from "react-toastify"
+
 const makeRequest = async (url, body, type, headers) => {
 
     const fetchOptions = {}
@@ -20,7 +22,17 @@ const makeRequest = async (url, body, type, headers) => {
             'Authorization' : `Bearer ${localStorage.getItem('key')}`
         }
     }
-    return await fetch(url, fetchOptions)
+    try {
+        const resposne = await fetch(url, fetchOptions)
+        if (!resposne) {
+            throw new Error('Something went wrong')
+        }
+        return resposne
+    } catch(e) {
+        toast.error('Server is down, please try later.', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
 }
 
 export default makeRequest

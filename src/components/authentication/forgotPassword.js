@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { toast } from "react-toastify"
-import { sendForgotPasswordCode } from "../apis/userRequests"
+import { sendForgotPasswordCode, updateForgotPassword, verifyFortgotPasswordOTP } from "../apis/userRequests"
 import { OK } from "../utils/constants"
 
 const ForgotPassword = ({ setForgotPassword }) => {
@@ -31,24 +31,36 @@ const ForgotPassword = ({ setForgotPassword }) => {
         }
     }
 
-    const handleOtpVerify = (e) => {
-        e.preventDefault()
-        setUser({
-            ...user,
-            isValidOtp: true,
-            isOtpSent: false
-        })
-        toast.success('OTP verified successfully', {
-            position: toast.POSITION.BOTTOM_RIGHT
-        })
+    const backtoLogin = () => {
+        setForgotPassword(false)
     }
 
-    const updatePassword = (e) => {
+    const handleOtpVerify = async (e) => {
         e.preventDefault()
-        setForgotPassword(false)
-        toast.success('Password updated successfully', {
-            position: toast.POSITION.BOTTOM_RIGHT
-        })
+        
+        const response = await verifyFortgotPasswordOTP(user)
+        if (response.status === 200) {
+            setUser({
+                ...user,
+                isValidOtp: true,
+                isOtpSent: false
+            })
+
+            toast.success('OTP verified successfully', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        }
+    }
+
+    const updatePassword = async (e) => {
+        e.preventDefault()
+        const response = await updateForgotPassword(user)
+        if (response.status === 200) {
+            toast.success('Password updated successfully', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            setForgotPassword(false)
+        }
     }
 
     return (
@@ -58,7 +70,7 @@ const ForgotPassword = ({ setForgotPassword }) => {
                 {
                     (function() {
                         if (user.isOtpSent) return <>
-                                <input placeholder="Enter the OTP" type="number" onChange={handleChange}/>
+                                <input placeholder="Enter the OTP" type="number" name="otp" onChange={handleChange}/>
                                 <button onClick={handleOtpVerify}>Verify</button>
                             </>
                         else if (user.isValidOtp) return <>
