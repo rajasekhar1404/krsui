@@ -328,38 +328,6 @@ button {
   transform: translate(-50%, -50%);
   z-index: 1;
 }
-/*task pad*/
-.text-area {
-  height: 92vh;
-  width: 90%;
-  margin-top: 1%;
-  padding: 1% 1%;
-  position: absolute;
-  left: 5%;
-  border-radius: 1%;
-  background-color: #282c34;
-  color: white;
-  overflow-y: scroll;
-}
-
-.text-area::-webkit-scrollbar { 
-  display: none;  /* Safari and Chrome */
-}
-
-.text-area h1, h2, h3, h4, h5, h6, p, li {
-  margin: 0;
-  padding-bottom: 5px;
-}
-
-.edit-button {
-  background-color: rgba(255, 0, 0, 0);
-  width: 2%;
-  margin-right: 1%;
-}
-
-.edit-button img {
-  width: 30px;
-}
 
 /* public dashboard */
 
@@ -750,4 +718,117 @@ table {
   font-size: calc(100px + 2vmin);
   font-weight: 600;
   padding: 0%;
+}
+
+/* taskpad */
+
+.taskpad-header {
+  background-color: #282c34;
+  width: 92%;
+  height: 6%;
+  position: fixed;
+  left: 5%;
+  top: 0.5%;
+  border-radius: 1ch;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.text-area {
+  /* height: 92vh; */
+  width: 90%;
+  margin-top: 3.5%;
+  padding: 1% 1%;
+  position: absolute;
+  left: 5%;
+  background-color: #282c34;
+  color: white;
+  border-radius: 1ch;
+  overflow-y: scroll;
+}
+
+.text-area::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+.text-area h1, h2, h3, h4, h5, h6, p, li {
+  margin: 0;
+  padding-bottom: 5px;
+}
+
+.edit-button {
+  background-color: rgba(255, 0, 0, 0);
+  width: 2%;
+  margin-right: 1%;
+}
+
+.edit-button img {
+  width: 30px;
+}
+
+.previous-textpad {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid #fff;
+  cursor: pointer;
+  width: 10%;
+}
+
+.next-textpad {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 2px solid #fff;
+  cursor: pointer;
+  width: 10%;
+}
+
+.taskpad-header-body {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  width: 82%;
+}
+
+.taskpad-title {
+  width: 60%;
+  margin-left: 1%;
+}
+
+.taskpad-button {
+  width: 10%;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.taskpad-button:hover {
+  color: gray;
+}
+
+.taskpad-public {
+  width: 10%;
+  display: flex;
+  align-items: center;
+}
+
+.taskpad-title-list {
+  color: #fff;
+  border: none;
+  background-color: #282c34;
+  padding: 1%;
+  cursor: pointer;
+}
+
+.taskpad-title-option {
+  background-color: #fff;
+  color: #282c34;
+}
+
+.taskpad-title-option p {
+  height: 50px;
 }

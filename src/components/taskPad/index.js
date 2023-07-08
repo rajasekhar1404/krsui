@@ -4,6 +4,7 @@ import { GET_TASK_PAD_CONTENT, TASK_PAD_UPDATE } from "../apis/taskApis"
 import EditIcon from '../../static/pencil-square.svg'
 import SaveIcon from '../../static/journal-check.svg'
 import TimeStampIcon from '../../static/calendar-plus.svg'
+import TaskpadHeader from "./header"
 
 const TaskPad = () => {
 
@@ -51,6 +52,7 @@ const TaskPad = () => {
 
     return (
         <div>
+            <TaskpadHeader />
             {
                 isEditing ? <textarea className="text-area"
                     value={text.content}
@@ -58,7 +60,7 @@ const TaskPad = () => {
                     onChange={e => setText({content : e.target.value})}
                     ></textarea> : <div
                      className="text-area">
-                            <ReactMarkdown>{text.content}</ReactMarkdown>
+                    <ReactMarkdown>{text.content}</ReactMarkdown>
                 </div>
             }
             {
