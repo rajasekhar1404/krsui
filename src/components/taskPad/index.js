@@ -1,82 +1,101 @@
 import { useEffect, useState } from "react"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown"
-import { GET_TASK_PAD_CONTENT, TASK_PAD_UPDATE } from "../apis/taskApis"
-import EditIcon from '../../static/pencil-square.svg'
-import SaveIcon from '../../static/journal-check.svg'
-import TimeStampIcon from '../../static/calendar-plus.svg'
 import TaskpadHeader from "./header"
+import { findAllTaskpadTitlesAndIds, findTaskpadById, updateTaskpad } from "../apis/taskpadRequest"
+import { ToastContainer, toast } from "react-toastify"
 
 const TaskPad = () => {
 
-    const [text, setText] = useState({
-        content : ''
-    })
+    const [titles, setTitles] = useState([])
+    const [currentTaskpad, setCurrentTaskpad] = useState({})
     const [isEditing, setEditing] = useState(false)
 
     useEffect(() => {
-        getTaskPadContent()
-    }, [])
-
-    const getTaskPadContent = async () => {
-        const response = await fetch(GET_TASK_PAD_CONTENT, {
-            method: 'GET',
-            headers: {
-                'Authorization' : `Bearer ${localStorage.getItem('key')}`
-            }
-        })
-        const data = await response.json()
-        if (data) {
-            setText(data)
+        async function testing() {
+            const allTitles = await findAllTaskpadTitlesAndIds()
+            setTitles(allTitles)
         }
+        testing()
+        handleCurrentTaskpad()
+    }, [titles.length])
+
+    let total = 0;
+    let current = 0;
+    const handleCurrentTaskpad = async (e, inc, dec) => {
+        if (titles.length <= 0) return
+        if (e) {
+            let taskpadId = e.target.value.split(':')[0].trim()
+            findTaskpadById(taskpadId).then(data => setCurrentTaskpad(data))
+        } else {
+            total = titles.length
+            if (inc && current <= total) {
+                current = current + 1
+                const data = await findTaskpadById(titles[current].taskpadId)
+                data && setCurrentTaskpad(data)
+            } else if (dec && current > 0 ) {
+                current = current - 1
+                const data = await findTaskpadById(titles[current].taskpadId)
+                data && setCurrentTaskpad(data)
+            } else {
+                findTaskpadById(titles[0].taskpadId).then(data => setCurrentTaskpad(data))
+            }
+        }
+
+    }
+
+    const changeHandler = (e) => {
+        if (e.target.name === 'isPublic') {
+            setCurrentTaskpad(prev => ({
+                ...prev,
+                [e.target.name]: e.target.checked
+            }))
+            return 
+        }
+        setCurrentTaskpad({
+            ...currentTaskpad,
+            [e.target.name]: e.target.value
+        })
     }
 
     const handleSave = async () => {
-       await fetch(TASK_PAD_UPDATE, {
-            method : 'POST',
-            headers : {
-                'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${localStorage.getItem('key')}`
-            },
-            body : JSON.stringify(text)
-        })
-        setEditing(!isEditing)
-    }
-
-    const handleEdit = () => {
-        setEditing(!isEditing)
+        if (isEditing) {
+            const response = await updateTaskpad(currentTaskpad)
+            response && setEditing(!isEditing)
+            toast.success(response.message, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        } else {
+            setEditing(!isEditing)
+        }
     }
 
     const handleAddTimeStamp = () => {
-        setText({content : text.content + ` \n---\n###### _${new Date().toLocaleString()}_\n---\n`})
+        setCurrentTaskpad({content : currentTaskpad.content + ` \n---\n###### _${new Date().toLocaleString()}_\n---\n`})
     }
 
     return (
         <div>
-            <TaskpadHeader />
+            <TaskpadHeader 
+                titles={titles} 
+                handleCurrentTaskpad={handleCurrentTaskpad} 
+                currentTaskpad={currentTaskpad}
+                isEditing={isEditing}
+                handleSave={handleSave}
+                changeHandler={changeHandler}
+                current={current}
+            />
             {
                 isEditing ? <textarea className="text-area"
-                    value={text.content}
+                    name="content"
+                    value={currentTaskpad.content}
                     placeholder="Enter your content here"
-                    onChange={e => setText({content : e.target.value})}
+                    onChange={changeHandler}
                     ></textarea> : <div
                      className="text-area">
-                    <ReactMarkdown>{text.content}</ReactMarkdown>
+                    <ReactMarkdown>{currentTaskpad.content}</ReactMarkdown>
                 </div>
             }
-            {
-                isEditing ? <div><button 
-                className="menu-container edit-button" 
-                onClick={handleSave}
-                ><img src={SaveIcon} alt="Save"/></button><br/><br/>
-                <button 
-                className="menu-container edit-button"
-                onClick={handleAddTimeStamp}
-                ><img src={TimeStampIcon} alt="Add timestamp"/></button>
-                </div> : 
-                <button 
-                className="menu-container edit-button" 
-                onClick={handleEdit}><img src={EditIcon} alt="Edit"/></button>
-            }
+            <ToastContainer />
         </div>
     )
 }

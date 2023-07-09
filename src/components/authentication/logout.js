@@ -1,10 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import LogoutIcon from '../../static/box-arrow-left.svg'
 
 const Logout = ({setActive }) => {
 
+    const navigate = useNavigate()
+
     const logoutHandler = () => {
         localStorage.clear();
         setActive(false)
+        navigate("/")
     }
 
     return (

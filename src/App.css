@@ -724,7 +724,7 @@ table {
 
 .taskpad-header {
   background-color: #282c34;
-  width: 92%;
+  width: 95%;
   height: 6%;
   position: fixed;
   left: 5%;
@@ -736,8 +736,8 @@ table {
 }
 
 .text-area {
-  /* height: 92vh; */
-  width: 90%;
+  min-height: 100vh;
+  width: 93%;
   margin-top: 3.5%;
   padding: 1% 1%;
   position: absolute;
@@ -831,4 +831,8 @@ table {
 
 .taskpad-title-option p {
   height: 50px;
+}
+
+.no-next {
+  background-color: #aaa;
 }
