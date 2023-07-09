@@ -9,38 +9,40 @@ const TaskPad = () => {
     const [titles, setTitles] = useState([])
     const [currentTaskpad, setCurrentTaskpad] = useState({})
     const [isEditing, setEditing] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        async function testing() {
+        async function findAll() {
             const allTitles = await findAllTaskpadTitlesAndIds()
             setTitles(allTitles)
         }
-        testing()
+        findAll()
         handleCurrentTaskpad()
     }, [titles.length])
 
-    let total = 0;
-    let current = 0;
-    const handleCurrentTaskpad = async (e, inc, dec) => {
+    const handleCurrentTaskpad = async (e, prev, next) => {
         if (titles.length <= 0) return
+        setLoading(prev => !prev)
         if (e) {
             let taskpadId = e.target.value.split(':')[0].trim()
-            findTaskpadById(taskpadId).then(data => setCurrentTaskpad(data))
+            findTaskpadById(taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
         } else {
-            total = titles.length
-            if (inc && current <= total) {
-                current = current + 1
-                const data = await findTaskpadById(titles[current].taskpadId)
-                data && setCurrentTaskpad(data)
-            } else if (dec && current > 0 ) {
-                current = current - 1
-                const data = await findTaskpadById(titles[current].taskpadId)
-                data && setCurrentTaskpad(data)
-            } else {
-                findTaskpadById(titles[0].taskpadId).then(data => setCurrentTaskpad(data))
+            if (!currentTaskpad.title) {
+                findTaskpadById(titles[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
+                return
+            }
+            let currentId = Number.parseInt(currentTaskpad.taskpadId.split(':')[0].trim().substring(3))
+            if (prev) {
+                let prevTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.split(':')[0].trim().substring(3))  < currentId)
+                findTaskpadById(prevTaskpad[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
+                return
+            }
+            if (next) {
+                let nextTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.split(':')[0].trim().substring(3))  > currentId)
+                findTaskpadById(nextTaskpad[nextTaskpad.length - 1].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
+                return
             }
         }
-
     }
 
     const changeHandler = (e) => {
@@ -77,12 +79,13 @@ const TaskPad = () => {
         <div>
             <TaskpadHeader 
                 titles={titles} 
+                setTitles={setTitles}
                 handleCurrentTaskpad={handleCurrentTaskpad} 
                 currentTaskpad={currentTaskpad}
                 isEditing={isEditing}
                 handleSave={handleSave}
                 changeHandler={changeHandler}
-                current={current}
+                loading={loading}
             />
             {
                 isEditing ? <textarea className="text-area"

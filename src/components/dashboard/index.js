@@ -45,7 +45,7 @@ const DashBoard = () => {
                     </span>
                     <span className='search-wrapper'>
                         <input placeholder="Enter email" onChange={handleChange}/>
-                        <Link to={"/" + email}><button>Search</button></Link>
+                        <Link to={"/user/" + email}><button>Search</button></Link>
                     </span>
                     <span className='login-wrapper'>
                         <button onClick={() => {

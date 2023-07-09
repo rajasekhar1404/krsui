@@ -18,7 +18,7 @@ const Navigator = ({setActive}) => {
                 <Route path='/' element={<DashBoard />} />
                 <Route path='/tasks' element={<TasksDashboard/>} />
                 <Route path='/taskpad' element={<TaskPad />}/>
-                <Route path="/:email" element={<UserPortfolio />}/>
+                <Route path="/user/:email" element={<UserPortfolio />}/>
             </Routes>
         </>
     )

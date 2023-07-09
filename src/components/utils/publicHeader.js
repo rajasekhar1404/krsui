@@ -18,7 +18,7 @@ const PublicHeader = () => {
                 </span>
                 <span className='search-wrapper'>
                     <input placeholder="Enter email" value={email} onChange={handleChange}/>
-                    <Link to={"/" + email} onClick={() => setEmail('')}><button>Search</button></Link>
+                    <Link to={"/user/" + email} onClick={() => setEmail('')}><button>Search</button></Link>
                 </span>
                 <span className='login-wrapper'>
                     <Link to={"/signup"}><button>Sign up</button></Link>

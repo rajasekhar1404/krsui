@@ -329,6 +329,20 @@ button {
   z-index: 1;
 }
 
+.loading-spinner-internal {
+  width: 15px;
+  height: 15px;
+  border: 3px solid #f3f3f3; /* Light grey */
+  border-top: 3px solid #383636; /* Black */
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
+  position: relative;
+  top: 0%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
 /* public dashboard */
 
 .portfolio-dashboard {
@@ -795,6 +809,8 @@ table {
 }
 
 .taskpad-title {
+  display: flex;
+  align-items: center;
   width: 60%;
   margin-left: 1%;
 }

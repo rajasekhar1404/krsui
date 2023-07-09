@@ -15,7 +15,7 @@ const PublicNavigator = ({ setActive }) => {
                 <Route path="/" element={<PublicDashboard />}/>
                 <Route path="/login" element={<Login setActive={setActive} />}/>
                 <Route path="/signup" element={<Signup />}/>
-                <Route path="/:email" element={<UserPortfolio />} />
+                <Route path="/user/:email" element={<UserPortfolio />} />
             </Routes>
         </>
     )
