@@ -852,3 +852,23 @@ table {
 .no-next {
   background-color: #aaa;
 }
+
+/* taskpad list */
+.taskpadList-container {
+  background-color: #e9e7e7;
+  padding: 1%;
+  margin: 1%;
+  cursor: pointer;
+}
+
+.taskpadList-container-taskpadId {
+  background-color: #34495E;
+  color: #fff;
+  font-weight: 600;
+  padding: 1%;
+}
+
+.taskpadList-container-title {
+  font-weight: 500;
+  padding: 1% 0 1% 1%;
+}

@@ -6,6 +6,7 @@ import { AboutMeHolder, ContactHolder, ExperienceHolder, ProjectHolder, SkillHol
 import { getLoggedInUser, getProfilePhoto } from "../apis/userRequests";
 import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
+import TaskpadList from "../taskPad/taskPadList";
 
 const DashBoard = () => {
 
@@ -58,6 +59,7 @@ const DashBoard = () => {
                     <ExperienceHolder experiences={user.experiences}/>
                     <ProjectHolder projects={user.projects}/>
                     <SkillHolder skills={user.skills}/>
+                    <TaskpadList />
                     <ContactHolder contact={user.contact} email={user.email}/>
                 </div>
             </div>

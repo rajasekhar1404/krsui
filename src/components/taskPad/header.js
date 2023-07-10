@@ -5,10 +5,12 @@ import { toast } from 'react-toastify'
 import Modal from '../utils/modal'
 import Spinner from '../utils/spinner'
 import { useState } from 'react'
+import DeleteConfirmationModal from '../utils/deleteConfirmationModal'
 
 const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading }) => {
 
     const [modalOpen, setModalOpen] = useState(false)
+    const [deleteModal, setDeleteModal] = useState(false)
     const [newTaskPad, setNewTaskpad] = useState('')
 
     const handleVisibility = async (e) => {
@@ -27,6 +29,7 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
             position: toast.POSITION.BOTTOM_RIGHT
         })
         setTitles([])
+        setDeleteModal(!deleteModal)
     }
 
     const createTaskPad = async () => {
@@ -61,7 +64,7 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
                 <div className='taskpad-public'>
                     <input type='checkbox' name='isPublic' onChange={handleVisibility} checked={currentTaskpad.isPublic || false}/><p>Public</p>
                 </div>
-                <div className='taskpad-button' onClick={handleDelete}>
+                <div className='taskpad-button' onClick={() => setDeleteModal(!deleteModal)}>
                     <p>Delete</p>
                 </div>
                 <div className='taskpad-button' onClick={() => setModalOpen(!modalOpen)}>
@@ -81,6 +84,9 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
             </div>
             {
                 modalOpen && <Modal setOpenModal={setModalOpen} setNewTaskpad={setNewTaskpad} createTaskPad={createTaskPad}/>
+            }
+            {
+                deleteModal && <DeleteConfirmationModal setDeleteModal={setDeleteModal} handleDelete={handleDelete} taskpadId={currentTaskpad.taskpadId} />
             }
         </div>
     )

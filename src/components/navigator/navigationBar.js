@@ -7,16 +7,12 @@ import Logout from '../authentication/logout'
 const NavigationBar = ({setActive}) => {
 
     return (
-        <>
         <nav className="nav-bar">
             <Link to={'/'}><img title='Home' src={TitleLogo} alt="home"/></Link>
             <Link to={'/taskpad'}><img title='Task pad' src={TaskPadLogo} alt="task pad" /></Link>
             <Link to={'/tasks'}><img title='Tasks' src={TaskLogo} alt="tasks"/></Link>
-        <div className='logoutContainer'>
-            <Logout setActive={setActive} />
-        </div>
+            <div className='logoutContainer'><Logout setActive={setActive} /></div>
         </nav>
-        </>
     )
 }
 

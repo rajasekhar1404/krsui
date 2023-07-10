@@ -3,6 +3,8 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 import TaskpadHeader from "./header"
 import { findAllTaskpadTitlesAndIds, findTaskpadById, updateTaskpad } from "../apis/taskpadRequest"
 import { ToastContainer, toast } from "react-toastify"
+import { useParams } from "react-router-dom"
+import ErrorPage from "../utils/errorpage"
 
 const TaskPad = () => {
 
@@ -10,6 +12,9 @@ const TaskPad = () => {
     const [currentTaskpad, setCurrentTaskpad] = useState({})
     const [isEditing, setEditing] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [isNotFound, setNotFound] = useState(false)
+
+    const { id } = useParams()
 
     useEffect(() => {
         async function findAll() {
@@ -17,32 +22,50 @@ const TaskPad = () => {
             setTitles(allTitles)
         }
         findAll()
-        handleCurrentTaskpad()
+        handleCurrentTaskpad(null, null, null, id)
     }, [titles.length])
 
-    const handleCurrentTaskpad = async (e, prev, next) => {
+    const handleCurrentTaskpad = async (e, prev, next, id) => {
         if (titles.length <= 0) return
         setLoading(prev => !prev)
+        if (id) {
+            findTaskpadById(id).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
+            return
+        }
         if (e) {
             let taskpadId = e.target.value.split(':')[0].trim()
             findTaskpadById(taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-        } else {
-            if (!currentTaskpad.title) {
-                findTaskpadById(titles[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-                return
-            }
-            let currentId = Number.parseInt(currentTaskpad.taskpadId.split(':')[0].trim().substring(3))
-            if (prev) {
-                let prevTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.split(':')[0].trim().substring(3))  < currentId)
-                findTaskpadById(prevTaskpad[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-                return
-            }
-            if (next) {
-                let nextTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.split(':')[0].trim().substring(3))  > currentId)
-                findTaskpadById(nextTaskpad[nextTaskpad.length - 1].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-                return
-            }
+            return
         }
+        if (!currentTaskpad.title) {
+            findTaskpadById(titles[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
+            return
+        }
+        let currentId = Number.parseInt(currentTaskpad.taskpadId.substring(3))
+        if (prev) {
+            let prevTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)
+            if (prevTaskpad.length <= 0) {
+                setLoading(prev => !prev)
+                return
+            }
+            findTaskpadById(prevTaskpad[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
+            // findTaskpad()
+            return
+        }
+        if (next) {
+            let nextTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)
+            if (nextTaskpad.length <= 0) {
+                setLoading(prev => !prev)
+                return
+            }
+            findTaskpad(nextTaskpad[nextTaskpad.length - 1])
+            return
+        }
+        setLoading(prev => !prev)
+    }
+
+    const findTaskpad = (id) => {
+        findTaskpadById(id).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
     }
 
     const changeHandler = (e) => {
@@ -88,15 +111,15 @@ const TaskPad = () => {
                 loading={loading}
             />
             {
+                isNotFound && <ErrorPage />
+            }
+            {
                 isEditing ? <textarea className="text-area"
                     name="content"
                     value={currentTaskpad.content}
                     placeholder="Enter your content here"
                     onChange={changeHandler}
-                    ></textarea> : <div
-                     className="text-area">
-                    <ReactMarkdown>{currentTaskpad.content}</ReactMarkdown>
-                </div>
+                    ></textarea> : <div className="text-area"><ReactMarkdown>{currentTaskpad.content}</ReactMarkdown></div>
             }
             <ToastContainer />
         </div>
