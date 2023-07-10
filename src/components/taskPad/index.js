@@ -26,45 +26,23 @@ const TaskPad = () => {
     }, [titles.length])
 
     const handleCurrentTaskpad = async (e, prev, next, id) => {
-        if (titles.length <= 0) return
-        setLoading(prev => !prev)
-        if (id) {
-            findTaskpadById(id).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-            return
-        }
-        if (e) {
-            let taskpadId = e.target.value.split(':')[0].trim()
-            findTaskpadById(taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-            return
-        }
-        if (!currentTaskpad.title) {
-            findTaskpadById(titles[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-            return
-        }
-        let currentId = Number.parseInt(currentTaskpad.taskpadId.substring(3))
+        if (titles.length <= 0) return                                                                              // first time when trying to execute before loading all the titles, just skipping it
+        if (id) return findTaskpad(id)                                                                              // when the id came through params
+        if (e) return findTaskpad(e.target.value.split(':')[0].trim())                                              // when onchange happned, getting the id from the title
+        if (!currentTaskpad.title) return findTaskpad(titles[0].taskpadId)                                          // after loading titles, setting up the top most title as current
+        let currentId = Number.parseInt(currentTaskpad.taskpadId.substring(3))                                      // extracting current Taskpad id for next, prev operatiions
         if (prev) {
-            let prevTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)
-            if (prevTaskpad.length <= 0) {
-                setLoading(prev => !prev)
-                return
-            }
-            findTaskpadById(prevTaskpad[0].taskpadId).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
-            // findTaskpad()
-            return
+            let prevTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)      // searching all the taskpads having id lesser than current id
+            return prevTaskpad.length > 0 && findTaskpad(prevTaskpad[0].taskpadId)                                  // if no prev just skip it else set the prev as current
         }
         if (next) {
-            let nextTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)
-            if (nextTaskpad.length <= 0) {
-                setLoading(prev => !prev)
-                return
-            }
-            findTaskpad(nextTaskpad[nextTaskpad.length - 1])
-            return
+            let nextTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)      // searching all the taskpads having id greater than current id
+            return nextTaskpad.length > 0 && findTaskpad(nextTaskpad[nextTaskpad.length - 1].taskpadId)             // if no next just skip it else set the next as current
         }
-        setLoading(prev => !prev)
     }
-
+    
     const findTaskpad = (id) => {
+        setLoading(prev => !prev)
         findTaskpadById(id).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
     }
 

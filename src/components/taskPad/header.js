@@ -6,11 +6,13 @@ import Modal from '../utils/modal'
 import Spinner from '../utils/spinner'
 import { useState } from 'react'
 import DeleteConfirmationModal from '../utils/deleteConfirmationModal'
+import ShareModal from '../utils/shareModal'
 
 const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading }) => {
 
     const [modalOpen, setModalOpen] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
+    const [shareModal, setShareModal] = useState(false)
     const [newTaskPad, setNewTaskpad] = useState('')
 
     const handleVisibility = async (e) => {
@@ -43,6 +45,8 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
         setModalOpen(!modalOpen)
     }
 
+        
+
     return (
         <div className="taskpad-header">
             <div className={`previous-textpad`} onClick={() => handleCurrentTaskpad(null, true, false)}>
@@ -70,7 +74,7 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
                 <div className='taskpad-button' onClick={() => setModalOpen(!modalOpen)}>
                     <p>Create new</p>
                 </div>
-                <div className='taskpad-button'>
+                <div className='taskpad-button' onClick={() => setShareModal(!shareModal)}>
                     <p>Share</p>
                 </div>
                 <div className='taskpad-button' onClick={handleSave}>
@@ -87,6 +91,9 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
             }
             {
                 deleteModal && <DeleteConfirmationModal setDeleteModal={setDeleteModal} handleDelete={handleDelete} taskpadId={currentTaskpad.taskpadId} />
+            }
+            {
+                shareModal && <ShareModal setShareModal={setShareModal} taskpadId={currentTaskpad.taskpadId}/>
             }
         </div>
     )
