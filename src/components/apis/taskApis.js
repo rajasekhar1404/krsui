@@ -13,6 +13,7 @@ export const GET_ALL_TASKPAD_TITLES = `${BASE_URL}/taskpad`
 export const GET_TASKPAD_BY_ID = `${BASE_URL}/taskpad/get/`
 export const CREATE_TASKPAD = `${BASE_URL}/taskpad/create`
 export const DELETE_TASKPAD = `${BASE_URL}/taskpad/`
+export const GET_ALL_PUBLIC_TASKPAD_TITLES = `${BASE_URL}/taskpad/`
 
 // users
 export const REGISTER = `${BASE_URL}/users/register`

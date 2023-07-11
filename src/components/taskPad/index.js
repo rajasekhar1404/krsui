@@ -3,7 +3,7 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 import TaskpadHeader from "./header"
 import { findAllTaskpadTitlesAndIds, findTaskpadById, updateTaskpad } from "../apis/taskpadRequest"
 import { ToastContainer, toast } from "react-toastify"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import ErrorPage from "../utils/errorpage"
 
 const TaskPad = () => {
@@ -15,18 +15,20 @@ const TaskPad = () => {
     const [isNotFound, setNotFound] = useState(false)
 
     const { id } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function findAll() {
             const allTitles = await findAllTaskpadTitlesAndIds()
             setTitles(allTitles)
+            if (!id) return handleCurrentTaskpad(null, null, null, titles[0].taskpadId)
+            const data = await findTaskpadById(id)
+            if (data) setCurrentTaskpad(data)
         }
         findAll()
-        handleCurrentTaskpad(null, null, null, id)
-    }, [titles.length])
+    }, [titles.length, id])
 
     const handleCurrentTaskpad = async (e, prev, next, id) => {
-        if (titles.length <= 0) return                                                                              // first time when trying to execute before loading all the titles, just skipping it
         if (id) return findTaskpad(id)                                                                              // when the id came through params
         if (e) return findTaskpad(e.target.value.split(':')[0].trim())                                              // when onchange happned, getting the id from the title
         if (!currentTaskpad.title) return findTaskpad(titles[0].taskpadId)                                          // after loading titles, setting up the top most title as current
@@ -41,9 +43,10 @@ const TaskPad = () => {
         }
     }
     
-    const findTaskpad = (id) => {
+    const findTaskpad = async (id) => {
         setLoading(prev => !prev)
-        findTaskpadById(id).then(data => setCurrentTaskpad(data)).then(() => setLoading(prev => !prev))
+        navigate('/taskpad/' + id)
+        setLoading(prev => !prev)
     }
 
     const changeHandler = (e) => {

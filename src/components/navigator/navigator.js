@@ -8,7 +8,6 @@ import TasksDashboard from "../tasks";
 import TaskPad from "../taskPad";
 import ErrorPage from "../utils/errorpage";
 import UserPortfolio from "../dashboard/userPortfolio";
-import PublicTaskpad from "../taskPad/publicTaskpad";
 
 const Navigator = ({setActive}) => {
     return (

@@ -7,6 +7,7 @@ import Spinner from '../utils/spinner'
 import { useState } from 'react'
 import DeleteConfirmationModal from '../utils/deleteConfirmationModal'
 import ShareModal from '../utils/shareModal'
+import { useNavigate } from 'react-router-dom'
 
 const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading }) => {
 
@@ -14,6 +15,8 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
     const [deleteModal, setDeleteModal] = useState(false)
     const [shareModal, setShareModal] = useState(false)
     const [newTaskPad, setNewTaskpad] = useState('')
+
+    const navigate = useNavigate()
 
     const handleVisibility = async (e) => {
         changeHandler(e)
@@ -30,7 +33,14 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
         if (response) toast.success(response.message, {
             position: toast.POSITION.BOTTOM_RIGHT
         })
-        setTitles([])
+        let currentId = Number.parseInt(currentTaskpad.taskpadId.substring(3))  
+        const previousTaskpads = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)
+        if (previousTaskpads.length > 0) {
+            navigate('/taskpad/' + previousTaskpads[0].taskpadId)
+        } else {
+            const nextTaskpads = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)
+            nextTaskpads.length > 0 ? navigate('/taskpad/' + nextTaskpads[nextTaskpads.length - 1].taskpadId) : navigate('/taskpad')
+        }
         setDeleteModal(!deleteModal)
     }
 
@@ -41,6 +51,7 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
             position: toast.POSITION.BOTTOM_RIGHT
         })
         setNewTaskpad('')
+        navigate('/taskpad')
         setTitles([])
         setModalOpen(!modalOpen)
     }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { findUserByEmail } from "../apis/userRequests"
 import ErrorPage from "../utils/errorpage"
 import LoadingSpinner from "../utils/LoadingSpinner"
+import TaskpadList from "../taskPad/taskPadList"
 
 const UserPortfolio = () => {
 
@@ -29,6 +30,7 @@ const UserPortfolio = () => {
                     <ExperienceHolder experiences={experiences}/>
                     <ProjectHolder projects={projects}/>
                     <SkillHolder skills={skills}/>
+                    <TaskpadList email={email}/>
                     <ContactHolder contact={contact} email={email}/>
                 </div>
             }

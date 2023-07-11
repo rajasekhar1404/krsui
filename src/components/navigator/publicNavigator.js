@@ -5,6 +5,7 @@ import PublicDashboard from "../dashboard/publicDashboard"
 import PublicHeader from "../utils/publicHeader"
 import UserPortfolio from "../dashboard/userPortfolio"
 import ErrorPage from "../utils/errorpage"
+import PublicTaskpad from "../taskPad/publicTaskpad"
 
 const PublicNavigator = ({ setActive }) => {
     return (
@@ -15,6 +16,7 @@ const PublicNavigator = ({ setActive }) => {
                 <Route path="/" element={<PublicDashboard />}/>
                 <Route path="/login" element={<Login setActive={setActive} />}/>
                 <Route path="/signup" element={<Signup />}/>
+                <Route path='/taskpad/:email/:id' element={<PublicTaskpad />}/>
                 <Route path="/user/:email" element={<UserPortfolio />} />
             </Routes>
         </>

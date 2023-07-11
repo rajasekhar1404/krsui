@@ -1,5 +1,5 @@
 import makeRequest from '../apis/makeRequest'
-import { CREATE_TASKPAD, DELETE_TASKPAD, GET_ALL_TASKPAD_TITLES, GET_TASKPAD_BY_ID, TASK_PAD_UPDATE } from './taskApis'
+import { CREATE_TASKPAD, DELETE_TASKPAD, GET_ALL_PUBLIC_TASKPAD_TITLES, GET_ALL_TASKPAD_TITLES, GET_TASKPAD_BY_ID, TASK_PAD_UPDATE } from './taskApis'
 import { INTERNAL_SERVER_ERROR } from '../utils/constants'
 import { toast } from 'react-toastify'
 
@@ -65,4 +65,28 @@ export const deleteTaskpadById = async (taskpadId) => {
         return
     }
     return await response.json()
+}
+
+export const findAllPublicTaskpadTitlesAndIds = async ( email ) => {
+    const response = await makeRequest(GET_ALL_PUBLIC_TASKPAD_TITLES + email)
+    if ( response.status === INTERNAL_SERVER_ERROR ) {
+     const data = await response.json()
+     toast.error(data.message, {
+         position: toast.POSITION.BOTTOM_RIGHT
+     })
+     return
+    }
+    return await response.json()
+ }
+
+export const findPublicTaskpad = async ( email, tpId ) => {
+const response = await makeRequest(GET_ALL_PUBLIC_TASKPAD_TITLES + email + "/" + tpId)
+if ( response.status === INTERNAL_SERVER_ERROR ) {
+    const data = await response.json()
+    toast.error(data.message, {
+        position: toast.POSITION.BOTTOM_RIGHT
+    })
+    return
+}
+return await response.json()
 }

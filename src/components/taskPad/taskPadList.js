@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react"
-import { findAllTaskpadTitlesAndIds } from "../apis/taskpadRequest"
+import { findAllPublicTaskpadTitlesAndIds, findAllTaskpadTitlesAndIds } from "../apis/taskpadRequest"
 import { useNavigate } from "react-router-dom"
 
-const TaskpadList = () => {
+const TaskpadList = ( { email } ) => {
 
     const [titles, setTitles] = useState([])
 
     useEffect(() => {
-        findAllTaskpadTitlesAndIds().then(json => setTitles(json))
-    }, [titles.length])
+        email ? findAllPublicTaskpadTitlesAndIds(email).then(json => setTitles(json)) : findAllTaskpadTitlesAndIds().then(json => setTitles(json))
+    }, [titles.length, email])
 
     const navigate = useNavigate()
 
     const handleTask = (id) => {
-        navigate("/taskpad/" + id)
+        email ? navigate("/taskpad/" + email + "/" + id) : navigate("/taskpad/" + id)
     }
 
     return (
