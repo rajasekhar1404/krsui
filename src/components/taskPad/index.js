@@ -5,10 +5,11 @@ import { findAllTaskpadTitlesAndIds, findTaskpadById, updateTaskpad } from "../a
 import { ToastContainer, toast } from "react-toastify"
 import { useNavigate, useParams } from "react-router-dom"
 import ErrorPage from "../utils/errorpage"
+import { useDispatch, useSelector } from "react-redux"
+import { updateTaskpads } from "../redux/taskpad/actionCreator"
 
 const TaskPad = () => {
 
-    const [titles, setTitles] = useState([])
     const [currentTaskpad, setCurrentTaskpad] = useState({})
     const [isEditing, setEditing] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -16,37 +17,48 @@ const TaskPad = () => {
 
     const { id } = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const taskpads = useSelector(state => state.taskpads)
+
+    // needs to be refactored
+    if (!taskpads || taskpads.length <= 0) {
+        findAllTaskpadTitlesAndIds().then(json => dispatch(updateTaskpads(json)))
+    }
 
     useEffect(() => {
-        async function findAll() {
-            const allTitles = await findAllTaskpadTitlesAndIds()
-            setTitles(allTitles)
-            if (!id) return handleCurrentTaskpad(null, null, null, titles[0].taskpadId)
+        async function findCurrent() {
+            setLoading(prev => !prev)
+            if (!id) {
+                handleCurrentTaskpad(null, null, null, taskpads[0].taskpadId)
+                setLoading(prev => !prev)
+                return
+            }
             const data = await findTaskpadById(id)
-            if (data) setCurrentTaskpad(data)
+            if (data) {
+                setCurrentTaskpad(data)
+            }
+            setLoading(prev => !prev)
         }
-        findAll()
-    }, [titles.length, id])
+        findCurrent()
+    }, [id, taskpads])
 
     const handleCurrentTaskpad = async (e, prev, next, id) => {
         if (id) return findTaskpad(id)                                                                              // when the id came through params
         if (e) return findTaskpad(e.target.value.split(':')[0].trim())                                              // when onchange happned, getting the id from the title
-        if (!currentTaskpad.title) return findTaskpad(titles[0].taskpadId)                                          // after loading titles, setting up the top most title as current
+        if (!currentTaskpad.title) return findTaskpad(taskpads[0].taskpadId)                                          // after loading titles, setting up the top most title as current
         let currentId = Number.parseInt(currentTaskpad.taskpadId.substring(3))                                      // extracting current Taskpad id for next, prev operatiions
         if (prev) {
-            let prevTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)      // searching all the taskpads having id lesser than current id
+            let prevTaskpad = taskpads.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)      // searching all the taskpads having id lesser than current id
             return prevTaskpad.length > 0 && findTaskpad(prevTaskpad[0].taskpadId)                                  // if no prev just skip it else set the prev as current
         }
         if (next) {
-            let nextTaskpad = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)      // searching all the taskpads having id greater than current id
+            let nextTaskpad = taskpads.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)      // searching all the taskpads having id greater than current id
             return nextTaskpad.length > 0 && findTaskpad(nextTaskpad[nextTaskpad.length - 1].taskpadId)             // if no next just skip it else set the next as current
         }
     }
     
     const findTaskpad = async (id) => {
-        setLoading(prev => !prev)
         navigate('/taskpad/' + id)
-        setLoading(prev => !prev)
     }
 
     const changeHandler = (e) => {
@@ -75,15 +87,13 @@ const TaskPad = () => {
         }
     }
 
-    const handleAddTimeStamp = () => {
-        setCurrentTaskpad({content : currentTaskpad.content + ` \n---\n###### _${new Date().toLocaleString()}_\n---\n`})
-    }
+    // const handleAddTimeStamp = () => {
+    //     setCurrentTaskpad({content : currentTaskpad.content + ` \n---\n###### _${new Date().toLocaleString()}_\n---\n`})
+    // }
 
     return (
         <div>
             <TaskpadHeader 
-                titles={titles} 
-                setTitles={setTitles}
                 handleCurrentTaskpad={handleCurrentTaskpad} 
                 currentTaskpad={currentTaskpad}
                 isEditing={isEditing}

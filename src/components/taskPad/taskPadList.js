@@ -1,14 +1,6 @@
-import { useEffect, useState } from "react"
-import { findAllPublicTaskpadTitlesAndIds, findAllTaskpadTitlesAndIds } from "../apis/taskpadRequest"
 import { useNavigate } from "react-router-dom"
 
-const TaskpadList = ( { email } ) => {
-
-    const [titles, setTitles] = useState([])
-
-    useEffect(() => {
-        email ? findAllPublicTaskpadTitlesAndIds(email).then(json => setTitles(json)) : findAllTaskpadTitlesAndIds().then(json => setTitles(json))
-    }, [titles.length, email])
+const TaskpadList = ( { email, titles } ) => {
 
     const navigate = useNavigate()
 
@@ -35,7 +27,7 @@ const TaskpadList = ( { email } ) => {
                             )
                         }
                     </div>
-            </section>
+                </section>
             }
         </>
     )

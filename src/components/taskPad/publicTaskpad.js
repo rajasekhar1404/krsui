@@ -11,9 +11,11 @@ const PublicTaskpad = () => {
     const [currentTaskpad, setCurrentTaskpad] = useState({})
     const [titles, setTitles] = useState([])
     const [isNotFound, setNotFound] = useState(false)
+    const [loader, setLoader] = useState(false)
 
     useEffect(() => {
         async function getData() {
+            setLoader(true)
             const publicTaskpads = await findAllPublicTaskpadTitlesAndIds(email)
             setTitles(publicTaskpads)
             const data = await findPublicTaskpad( email, id )
@@ -22,9 +24,10 @@ const PublicTaskpad = () => {
                 setNotFound(false)
                 setCurrentTaskpad(data)
             }
+            setLoader(false)
         }
         getData()
-    }, [id])
+    }, [id, email])
 
     const navigate = useNavigate()
 
@@ -52,13 +55,13 @@ const PublicTaskpad = () => {
                 setTitles={setTitles}
                 currentTaskpad={currentTaskpad}
                 handleCurrentTaskpad={handleCurrentTaskpad}
+                loader={loader}
             />
             {
-                isNotFound && <ErrorPage />
+                isNotFound ? <ErrorPage /> : <div className="text-area-public">
+                    <ReactMarkdown>{currentTaskpad.content}</ReactMarkdown>
+                </div>
             }
-            <div className="text-area-public">
-                <ReactMarkdown>{currentTaskpad.content}</ReactMarkdown>
-            </div>
         </div>
     )
 }

@@ -29,8 +29,8 @@ export const getLoggedInUser = async () => {
 }
 
 export const findUserByEmail = async (email) => {
-	return await makeRequest(USER_BY_EMAIL + "/" + email)
-
+	const response = await makeRequest(USER_BY_EMAIL + "/" + email)
+    return await response.json()
 }
 
 export const getProfilePhoto = async () => {

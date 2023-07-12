@@ -7,6 +7,9 @@ import { getLoggedInUser, getProfilePhoto } from "../apis/userRequests";
 import { ToastContainer } from "react-toastify";
 import { Link } from "react-router-dom";
 import TaskpadList from "../taskPad/taskPadList";
+import { findAllTaskpadTitlesAndIds } from "../apis/taskpadRequest";
+import { useDispatch } from "react-redux";
+import { updateTaskpads } from "../redux/taskpad/actionCreator";
 
 const DashBoard = () => {
 
@@ -14,10 +17,19 @@ const DashBoard = () => {
     const [email, setEmail] = useState(null)
     const [userPhoto, setUserPhoto] = useState("")
     const [updateDashBoard, setUpdateDashboard] = useState(false)
+    const [titles, setTitles] = useState([])
 
     useEffect(() => {
-        getUserProfile()
+        async function getUserData() {
+            await getUserProfile()
+            await getUserTaskpads()
+            const photo = await getProfilePhoto()
+            setUserPhoto(photo.profilePhoto)
+        }
+        getUserData()
     }, [])
+
+    const dispatch = useDispatch()
 
     const getUserProfile = async () => {
         const data = await getLoggedInUser()
@@ -26,9 +38,13 @@ const DashBoard = () => {
                 ...prev,
                 ...data
             }))
-        const photo = await getProfilePhoto()
-        setUserPhoto(photo.profilePhoto)
         }
+    }
+
+    const getUserTaskpads = async () => {
+        const taskpads = await findAllTaskpadTitlesAndIds()
+        dispatch(updateTaskpads(taskpads))
+        setTitles(taskpads)
     }
 
     const handleChange = (e) => {
@@ -59,7 +75,7 @@ const DashBoard = () => {
                     <ExperienceHolder experiences={user.experiences}/>
                     <ProjectHolder projects={user.projects}/>
                     <SkillHolder skills={user.skills}/>
-                    <TaskpadList />
+                    <TaskpadList titles={titles}/>
                     <ContactHolder contact={user.contact} email={user.email}/>
                 </div>
             </div>

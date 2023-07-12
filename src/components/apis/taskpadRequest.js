@@ -81,12 +81,7 @@ export const findAllPublicTaskpadTitlesAndIds = async ( email ) => {
 
 export const findPublicTaskpad = async ( email, tpId ) => {
 const response = await makeRequest(GET_ALL_PUBLIC_TASKPAD_TITLES + email + "/" + tpId)
-if ( response.status === INTERNAL_SERVER_ERROR ) {
-    const data = await response.json()
-    toast.error(data.message, {
-        position: toast.POSITION.BOTTOM_RIGHT
-    })
-    return
+if ( response.status !== INTERNAL_SERVER_ERROR ) {
+    return await response.json()
 }
-return await response.json()
 }

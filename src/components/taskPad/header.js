@@ -8,13 +8,16 @@ import { useState } from 'react'
 import DeleteConfirmationModal from '../utils/deleteConfirmationModal'
 import ShareModal from '../utils/shareModal'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading }) => {
+const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading }) => {
 
     const [modalOpen, setModalOpen] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [shareModal, setShareModal] = useState(false)
     const [newTaskPad, setNewTaskpad] = useState('')
+    // const [taskpads, setTaskpads] = useState()
+    const taskpads = useSelector(state => state.taskpads)
 
     const navigate = useNavigate()
 
@@ -34,11 +37,11 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
             position: toast.POSITION.BOTTOM_RIGHT
         })
         let currentId = Number.parseInt(currentTaskpad.taskpadId.substring(3))  
-        const previousTaskpads = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)
+        const previousTaskpads = taskpads.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)
         if (previousTaskpads.length > 0) {
             navigate('/taskpad/' + previousTaskpads[0].taskpadId)
         } else {
-            const nextTaskpads = titles.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)
+            const nextTaskpads = taskpads.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)
             nextTaskpads.length > 0 ? navigate('/taskpad/' + nextTaskpads[nextTaskpads.length - 1].taskpadId) : navigate('/taskpad')
         }
         setDeleteModal(!deleteModal)
@@ -52,7 +55,7 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
         })
         setNewTaskpad('')
         navigate('/taskpad')
-        setTitles([])
+        // setTaskpads([])
         setModalOpen(!modalOpen)
     }
 
@@ -67,7 +70,7 @@ const TaskpadHeader = ({ titles, setTitles, handleCurrentTaskpad, currentTaskpad
                 <div className='taskpad-title'>
                     <select className='taskpad-title-list' title='Taskpad posts' value={`${currentTaskpad.taskpadId} : ${currentTaskpad.title}`} onChange={handleCurrentTaskpad}>
                         {
-                            titles && titles.length > 0 && titles.map(eachTitle => <option key={eachTitle.taskpadId}>
+                            taskpads && taskpads.length > 0 && taskpads.map(eachTitle => <option key={eachTitle.taskpadId}>
                                 {eachTitle.taskpadId} : {eachTitle.title}
                             </option>)
                         }

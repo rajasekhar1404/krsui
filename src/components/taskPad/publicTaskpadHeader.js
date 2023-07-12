@@ -2,8 +2,9 @@ import PreviousIcon from '../../static/previous.png'
 import NextIcon from '../../static/next.png'
 import { useState } from 'react'
 import ShareModal from '../utils/shareModal'
+import Spinner from '../utils/spinner'
 
-const PublicTaskpadHeader = ({ titles, handleCurrentTaskpad, currentTaskpad }) => {
+const PublicTaskpadHeader = ({ titles, handleCurrentTaskpad, currentTaskpad, loader }) => {
 
     const [shareModal, setShareModal] = useState(false)
 
@@ -21,6 +22,9 @@ const PublicTaskpadHeader = ({ titles, handleCurrentTaskpad, currentTaskpad }) =
                             </option>)
                         }
                     </select>
+                    {
+                        loader && <Spinner />
+                    }
                 </div>
                 <div className='taskpad-button' onClick={() => setShareModal(!shareModal)}>
                     <p>Share</p>
