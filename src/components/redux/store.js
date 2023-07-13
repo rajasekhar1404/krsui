@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import taskpadReducer from "./reducer";
+import reducer from "./reducer";
 
 export default configureStore({
-    reducer: taskpadReducer
+    reducer: reducer
 })

@@ -8,16 +8,13 @@ import { useState } from 'react'
 import DeleteConfirmationModal from '../utils/deleteConfirmationModal'
 import ShareModal from '../utils/shareModal'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
-const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading }) => {
+const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading, taskpads, setTaskpads }) => {
 
     const [modalOpen, setModalOpen] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [shareModal, setShareModal] = useState(false)
     const [newTaskPad, setNewTaskpad] = useState('')
-    // const [taskpads, setTaskpads] = useState()
-    const taskpads = useSelector(state => state.taskpads)
 
     const navigate = useNavigate()
 
@@ -39,6 +36,7 @@ const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handle
         let currentId = Number.parseInt(currentTaskpad.taskpadId.substring(3))  
         const previousTaskpads = taskpads.filter(each => Number.parseInt(each.taskpadId.substring(3))  < currentId)
         if (previousTaskpads.length > 0) {
+            setTaskpads([])
             navigate('/taskpad/' + previousTaskpads[0].taskpadId)
         } else {
             const nextTaskpads = taskpads.filter(each => Number.parseInt(each.taskpadId.substring(3))  > currentId)
@@ -55,7 +53,7 @@ const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handle
         })
         setNewTaskpad('')
         navigate('/taskpad')
-        // setTaskpads([])
+        setTaskpads([])
         setModalOpen(!modalOpen)
     }
 

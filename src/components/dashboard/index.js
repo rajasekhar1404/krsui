@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import TaskpadList from "../taskPad/taskPadList";
 import { findAllTaskpadTitlesAndIds } from "../apis/taskpadRequest";
 import { useDispatch } from "react-redux";
-import { updateTaskpads } from "../redux/taskpad/actionCreator";
+import { updateUser } from "../redux/user/actionCreator";
 
 const DashBoard = () => {
 
@@ -18,6 +18,7 @@ const DashBoard = () => {
     const [userPhoto, setUserPhoto] = useState("")
     const [updateDashBoard, setUpdateDashboard] = useState(false)
     const [titles, setTitles] = useState([])
+    const dispatch = useDispatch()
 
     useEffect(() => {
         async function getUserData() {
@@ -29,11 +30,10 @@ const DashBoard = () => {
         getUserData()
     }, [])
 
-    const dispatch = useDispatch()
-
     const getUserProfile = async () => {
         const data = await getLoggedInUser()
         if (data) {
+            dispatch(updateUser(data))
             setUser(prev => ({
                 ...prev,
                 ...data
@@ -43,7 +43,6 @@ const DashBoard = () => {
 
     const getUserTaskpads = async () => {
         const taskpads = await findAllTaskpadTitlesAndIds()
-        dispatch(updateTaskpads(taskpads))
         setTitles(taskpads)
     }
 

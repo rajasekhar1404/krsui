@@ -14,15 +14,18 @@ const TaskPad = () => {
     const [isEditing, setEditing] = useState(false)
     const [loading, setLoading] = useState(false)
     const [isNotFound, setNotFound] = useState(false)
+    const [taskpads, setTaskpads] = useState(useSelector(state => state.taskpads))
 
     const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const taskpads = useSelector(state => state.taskpads)
 
     // needs to be refactored
     if (!taskpads || taskpads.length <= 0) {
-        findAllTaskpadTitlesAndIds().then(json => dispatch(updateTaskpads(json)))
+        findAllTaskpadTitlesAndIds().then(json => {
+            setTaskpads(json)
+            dispatch(updateTaskpads(json))
+        })
     }
 
     useEffect(() => {
@@ -37,7 +40,7 @@ const TaskPad = () => {
             if (data) {
                 setCurrentTaskpad(data)
             }
-            setLoading(prev => !prev)
+            setLoading(false)
         }
         findCurrent()
     }, [id, taskpads])
@@ -100,6 +103,8 @@ const TaskPad = () => {
                 handleSave={handleSave}
                 changeHandler={changeHandler}
                 loading={loading}
+                taskpads={taskpads}
+                setTaskpads={setTaskpads}
             />
             {
                 isNotFound && <ErrorPage />
