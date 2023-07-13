@@ -8,6 +8,7 @@ import TasksDashboard from "../tasks";
 import TaskPad from "../taskPad";
 import ErrorPage from "../utils/errorpage";
 import UserPortfolio from "../dashboard/userPortfolio";
+import PublicTaskpad from '../taskPad/publicTaskpad'
 
 const Navigator = ({setActive}) => {
     return (
@@ -20,6 +21,7 @@ const Navigator = ({setActive}) => {
                 <Route path='/taskpad/:id' element={<TaskPad />}/>
                 <Route path='/taskpad' element={<TaskPad />}/>
                 <Route path="/user/:email" element={<UserPortfolio />}/>
+                <Route path='/taskpad/:email/:id' element={<PublicTaskpad />}/>
             </Routes>
         </>
     )

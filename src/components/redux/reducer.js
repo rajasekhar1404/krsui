@@ -1,7 +1,12 @@
 import { UPDATE_USER } from "./user/actionTypes";
 import { ADD_NEW_TASKPAD, UPDATE_TASKPADS } from "./taskpad/actionTypes";
 
-const reducer = (state={}, action) => {
+const initialState = {
+    user: {},
+    taskpads: []
+}
+
+const reducer = (state=initialState, action) => {
     switch (action.type) {
         case UPDATE_TASKPADS : return {
             ...state,

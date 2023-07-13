@@ -8,6 +8,7 @@ import { useState } from 'react'
 import DeleteConfirmationModal from '../utils/deleteConfirmationModal'
 import ShareModal from '../utils/shareModal'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handleSave, changeHandler, loading, taskpads, setTaskpads }) => {
 
@@ -15,7 +16,8 @@ const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handle
     const [deleteModal, setDeleteModal] = useState(false)
     const [shareModal, setShareModal] = useState(false)
     const [newTaskPad, setNewTaskpad] = useState('')
-// remove later
+    const email = useSelector(state => state.user.email)
+
     const navigate = useNavigate()
 
     const handleVisibility = async (e) => {
@@ -105,7 +107,7 @@ const TaskpadHeader = ({ handleCurrentTaskpad, currentTaskpad, isEditing, handle
                 deleteModal && <DeleteConfirmationModal setDeleteModal={setDeleteModal} handleDelete={handleDelete} taskpadId={currentTaskpad.taskpadId} />
             }
             {
-                shareModal && <ShareModal setShareModal={setShareModal} taskpadId={currentTaskpad.taskpadId}/>
+                shareModal && <ShareModal setShareModal={setShareModal} taskpadId={currentTaskpad.taskpadId} email={email}/>
             }
         </div>
     )

@@ -1,11 +1,9 @@
 import { useParams } from "react-router-dom"
-import { AboutMeHolder, ContactHolder, ExperienceHolder, ProjectHolder, SkillHolder } from "../utils/userPortfolioBlocks"
 import { useEffect, useState } from "react"
 import { findUserByEmail } from "../apis/userRequests"
-import ErrorPage from "../utils/errorpage"
-import LoadingSpinner from "../utils/LoadingSpinner"
-import TaskpadList from "../taskPad/taskPadList"
 import { findAllPublicTaskpadTitlesAndIds } from "../apis/taskpadRequest"
+import DefaultTemplate from './templates/default/defaultTempalte'
+import SidebarTemplate from "./templates/sidebar-template/sidebarTemplate"
 
 const UserPortfolio = () => {
 
@@ -27,26 +25,16 @@ const UserPortfolio = () => {
         setPortfolio()
     }, [email])
 
-    const { fullname, aboutMe, profilePhoto, experiences, projects, skills, contact } = user
+    const templates = new Map()
+    templates.set('default', <DefaultTemplate user={user} titles={titles} isLoading={isLoading} email={email} />)
+    templates.set('sidebar-template', <SidebarTemplate user={user} titles={titles} isLoading={isLoading} email={email} />)
+
     return (
-        <div className='portfolio-dashboard'>
+        <>
             {
-                isLoading && <LoadingSpinner />
+                templates.get( email === 'rajasekhar.k@nexwave.in' ? 'sidebar-template' : 'default')
             }
-            {
-                user && user.email && <div className="portfolio-popup">
-                    <AboutMeHolder fullname={fullname} aboutMe={aboutMe} profilePhoto={profilePhoto} />
-                    <ExperienceHolder experiences={experiences}/>
-                    <ProjectHolder projects={projects}/>
-                    <SkillHolder skills={skills}/>
-                    <TaskpadList email={email} titles={titles}/>
-                    <ContactHolder contact={contact} email={email}/>
-                </div>
-            }
-            {
-                !isLoading && !user.email && <ErrorPage />
-            }
-        </div>
+        </>
     )
 }
 

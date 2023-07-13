@@ -5,12 +5,10 @@ import INSTAGRAM from '../../static/instagram.png'
 import WHATSAPP from '../../static/WhatsApp.svg.webp'
 import TWITTER from '../../static/twitter.png'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
-const ShareModal = ({ setShareModal, taskpadId }) => {
+const ShareModal = ({ setShareModal, taskpadId, email }) => {
 
-    const email = useSelector(state => state.user.email)
-    let url = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) +  email + window.location.href.substring(window.location.href.lastIndexOf('/'))
+    let url = email ? window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1) +  email + window.location.href.substring(window.location.href.lastIndexOf('/')) : window.location.href
 
     return (
         <div className="modalBackground">
