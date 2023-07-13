@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ToastContainer } from "react-toastify"
-import HomeLogo from '../../static/title.svg'
+import HomeLogo from '../../static/CentralHub_black_logo_500_500.png'
 import { registerUser } from "../apis/userRequests"
 import { Link, useNavigate } from "react-router-dom"
 

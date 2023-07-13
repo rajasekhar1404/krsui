@@ -15,7 +15,7 @@ import TASK_PAD_SC_2 from '../../static/taskpad_edit.png'
 import { ToastContainer } from 'react-toastify'
 
 const PublicDashboard = () => {
-
+    document.title = "CentralHub"
     return (
         <div className='portfolio-dashboard'>
             <div className="features">

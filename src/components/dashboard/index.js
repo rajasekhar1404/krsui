@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import UpdateDashboard from "./updateDashBoard";
-import KRSLOGO from '../../static/title.svg'
+import KRSLOGO from '../../static/CentralHub_black_logo_500_500.png'
 import { AboutMeHolder, ContactHolder, ExperienceHolder, ProjectHolder, SkillHolder } from "../utils/userPortfolioBlocks";
 import { getLoggedInUser, getProfilePhoto } from "../apis/userRequests";
 import { ToastContainer } from "react-toastify";
@@ -30,6 +30,7 @@ const DashBoard = () => {
         getUserData()
     }, [])
 
+    
     const getUserProfile = async () => {
         const data = await getLoggedInUser()
         if (data) {
@@ -40,16 +41,17 @@ const DashBoard = () => {
             }))
         }
     }
-
+    
     const getUserTaskpads = async () => {
         const taskpads = await findAllTaskpadTitlesAndIds()
         setTitles(taskpads)
     }
-
+    
     const handleChange = (e) => {
-		setEmail(e.target.value);
+        setEmail(e.target.value);
 	}
-
+    
+    document.title = user.fullname || 'CentralHub'
     return (
         <>
         {

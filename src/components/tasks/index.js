@@ -10,6 +10,7 @@ import LoadingSpinner from "../utils/LoadingSpinner";
 import { OK } from "../utils/constants";
 
 const TasksDashboard = () => {
+    document.title = "Tasks - CentralHub"
 
     const [tasks, setTasks] = useState([])
     const [isEditing, setEditing] = useState({

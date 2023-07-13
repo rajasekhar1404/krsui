@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import KRSLOGO from '../../static/title.svg'
+import KRSLOGO from '../../static/CentralHub_black_logo_500_500.png'
 
 const PublicHeader = () => {
 

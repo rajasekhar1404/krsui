@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { updateTaskpads } from "../redux/taskpad/actionCreator"
 
 const TaskPad = () => {
+    document.title = "Taskpad - CentralHub"
 
     const [currentTaskpad, setCurrentTaskpad] = useState({})
     const [isEditing, setEditing] = useState(false)
